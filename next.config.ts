@@ -23,6 +23,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  turbopack: {
+    // Explicitly set root to this app's directory to avoid wrong root inference
+    root: __dirname,
+  },
 };
 
 export default nextConfig;
