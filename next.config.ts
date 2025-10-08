@@ -27,6 +27,10 @@ const nextConfig: NextConfig = {
     // Explicitly set root to this app's directory to avoid wrong root inference
     root: __dirname,
   },
+  experimental: {
+    // Disable Lightning CSS to avoid missing native binary on some Linux targets (e.g., Vercel)
+    optimizeCss: false,
+  },
 };
 
 export default nextConfig;
