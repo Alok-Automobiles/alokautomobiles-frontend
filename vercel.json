@@ -1,0 +1,9 @@
+{
+  "buildCommand": "npm run build",
+  "env": {
+    "NEXT_IGNORE_TURBOPACK": "1",
+    "TAILWIND_DISABLE_LIGHTNINGCSS": "1"
+  }
+}
+
+
