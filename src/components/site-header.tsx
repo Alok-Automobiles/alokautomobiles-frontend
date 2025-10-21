@@ -11,7 +11,7 @@ export function SiteHeader() {
         <Link href="/" className="flex items-center gap-2" aria-label="Alok Automobiles home">
           <div className="w-8 h-8 rounded-md overflow-hidden flex-shrink-0">
             <Image
-              src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=32&h=32&fit=crop&crop=center&auto=format&q=80"
+              src="/logo.png"
               alt="Alok Automobiles logo"
               width={32}
               height={32}
