@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Spinner } from "./ui/spinner";
-
 export function LoadingScreen() {
   const [isLoading, setIsLoading] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
