@@ -1,10 +1,10 @@
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
-import { Hero } from "@/components/hero"
-import { BrandStrip } from "@/components/brand-strip"
-import { CategoryCard } from "@/components/category-card"
-import { ServiceHighlights } from "@/components/service-highlights"
-import { ContactCTA } from "@/components/contact-cta"
+import { SiteHeader } from "@/components/Landing-page/site-header"
+import { SiteFooter } from "@/components/Landing-page/site-footer"
+import { Hero } from "@/components/Landing-page/hero"
+import { BrandStrip } from "@/components/Landing-page/brand-strip"
+import { CategoryCard } from "@/components/Landing-page/category-card"
+import { ServiceHighlights } from "@/components/Landing-page/service-highlights"
+import { ContactCTA } from "@/components/Landing-page/contact-cta"
 
 export default function HomePage() {
   return (
