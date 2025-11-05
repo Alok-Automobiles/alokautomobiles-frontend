@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LoadingScreen } from "@/components/Landing-page/loading-screen";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
         <div className="animate-fade-in">
           {children}
         </div>
+        <SpeedInsights />
       </body>
     </html>
   );
