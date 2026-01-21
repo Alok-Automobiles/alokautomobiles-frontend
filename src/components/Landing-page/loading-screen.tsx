@@ -1,155 +1,70 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+
 export function LoadingScreen() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
 
+  // Simulate loading progress until the page is ready
   useEffect(() => {
-    // Check if all images are loaded
-    const checkImagesLoaded = () => {
-      const images = document.querySelectorAll('img');
-      let loadedCount = 0;
-      const totalImages = images.length;
+    const interval = setInterval(() => {
+      setProgress((prev) => Math.min(prev + Math.random() * 12 + 5, 90));
+    }, 280);
 
-      if (totalImages === 0) {
-        // If no images, just wait a bit for other content to load
-        setTimeout(() => setIsLoading(false), 1000);
-        return;
-      }
+    return () => clearInterval(interval);
+  }, []);
 
-      const handleImageLoad = () => {
-        loadedCount++;
-        if (loadedCount === totalImages) {
-          // All images loaded, start fade out transition
-          setTimeout(() => {
-            setIsFadingOut(true);
-            // Hide completely after fade animation
-            setTimeout(() => setIsLoading(false), 300);
-          }, 500);
-        }
-      };
-
-      images.forEach((img) => {
-        if (img.complete) {
-          handleImageLoad();
-        } else {
-          img.addEventListener('load', handleImageLoad);
-          img.addEventListener('error', handleImageLoad); // Count errors as "loaded"
-        }
-      });
+  // Finish when window load fires or after fallback
+  useEffect(() => {
+    const finish = () => {
+      setProgress(100);
+      setTimeout(() => setIsFadingOut(true), 150);
+      setTimeout(() => setIsVisible(false), 500);
     };
 
-    // Wait for DOM to be ready
-    if (document.readyState === 'complete') {
-      checkImagesLoaded();
-    } else {
-      window.addEventListener('load', checkImagesLoaded);
-    }
+    const onLoad = () => finish();
+    window.addEventListener("load", onLoad);
 
-    // Fallback: hide loading after 5 seconds regardless
-    const fallbackTimer = setTimeout(() => {
-      setIsFadingOut(true);
-      setTimeout(() => setIsLoading(false), 300);
-    }, 5000);
+    const fallback = setTimeout(finish, 3200);
 
     return () => {
-      window.removeEventListener('load', checkImagesLoaded);
-      clearTimeout(fallbackTimer);
+      window.removeEventListener("load", onLoad);
+      clearTimeout(fallback);
     };
   }, []);
 
-  if (!isLoading) return null;
+  const statusText = useMemo(() => {
+    if (progress < 30) return "Preparing your experience...";
+    if (progress < 60) return "Checking inventory and brands...";
+    if (progress < 90) return "Polishing details...";
+    return "Ready to go!";
+  }, [progress]);
+
+  if (!isVisible) return null;
 
   return (
-    <div 
-      className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-300 ${
-        isFadingOut ? 'opacity-0' : 'opacity-100'
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 transition-opacity duration-300 ${
+        isFadingOut ? "opacity-0" : "opacity-100"
       }`}
-      style={{
-        background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 25%, #1e40af 50%, #1e3a8a 75%, #0f172a 100%)',
-        backgroundSize: '400% 400%',
-        animation: 'gradientShift 3s ease-in-out infinite'
-      }}
     >
-      {/* Automotive-themed background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Gear/cog animations */}
-        <div className="absolute top-20 left-20 w-16 h-16 opacity-20">
-          <div className="w-full h-full border-4 border-white rounded-full animate-spin" style={{ animationDuration: '4s' }}>
-            <div className="w-2 h-2 bg-white rounded-full absolute top-0 left-1/2 transform -translate-x-1/2"></div>
-            <div className="w-2 h-2 bg-white rounded-full absolute bottom-0 left-1/2 transform -translate-x-1/2"></div>
-            <div className="w-2 h-2 bg-white rounded-full absolute left-0 top-1/2 transform -translate-y-1/2"></div>
-            <div className="w-2 h-2 bg-white rounded-full absolute right-0 top-1/2 transform -translate-y-1/2"></div>
-          </div>
-        </div>
-        
-        <div className="absolute top-32 right-32 w-12 h-12 opacity-15">
-          <div className="w-full h-full border-3 border-white rounded-full animate-spin" style={{ animationDuration: '6s', animationDirection: 'reverse' }}>
-            <div className="w-1.5 h-1.5 bg-white rounded-full absolute top-0 left-1/2 transform -translate-x-1/2"></div>
-            <div className="w-1.5 h-1.5 bg-white rounded-full absolute bottom-0 left-1/2 transform -translate-x-1/2"></div>
-            <div className="w-1.5 h-1.5 bg-white rounded-full absolute left-0 top-1/2 transform -translate-y-1/2"></div>
-            <div className="w-1.5 h-1.5 bg-white rounded-full absolute right-0 top-1/2 transform -translate-y-1/2"></div>
-          </div>
-        </div>
+      <div className="w-full max-w-md px-8 text-center text-white">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary mb-3">
+          Alok Automobiles
+        </p>
+        <h2 className="text-2xl font-bold mb-2">Loading your automotive solutions</h2>
+        <p className="text-sm text-white/70 mb-6">{statusText}</p>
 
-        <div className="absolute bottom-20 left-32 w-10 h-10 opacity-10">
-          <div className="w-full h-full border-2 border-white rounded-full animate-spin" style={{ animationDuration: '8s' }}>
-            <div className="w-1 h-1 bg-white rounded-full absolute top-0 left-1/2 transform -translate-x-1/2"></div>
-            <div className="w-1 h-1 bg-white rounded-full absolute bottom-0 left-1/2 transform -translate-x-1/2"></div>
-            <div className="w-1 h-1 bg-white rounded-full absolute left-0 top-1/2 transform -translate-y-1/2"></div>
-            <div className="w-1 h-1 bg-white rounded-full absolute right-0 top-1/2 transform -translate-y-1/2"></div>
-          </div>
+        <div className="h-2 w-full overflow-hidden rounded-full bg-white/15">
+          <div
+            className="h-full rounded-full bg-primary transition-[width] duration-200 ease-out"
+            style={{ width: `${progress}%` }}
+          />
         </div>
-
-        <div className="absolute bottom-32 right-20 w-14 h-14 opacity-25">
-          <div className="w-full h-full border-3 border-white rounded-full animate-spin" style={{ animationDuration: '5s', animationDirection: 'reverse' }}>
-            <div className="w-2 h-2 bg-white rounded-full absolute top-0 left-1/2 transform -translate-x-1/2"></div>
-            <div className="w-2 h-2 bg-white rounded-full absolute bottom-0 left-1/2 transform -translate-x-1/2"></div>
-            <div className="w-2 h-2 bg-white rounded-full absolute left-0 top-1/2 transform -translate-y-1/2"></div>
-            <div className="w-2 h-2 bg-white rounded-full absolute right-0 top-1/2 transform -translate-y-1/2"></div>
-          </div>
-        </div>
-
-        {/* Moving lines to simulate speed */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-30 animate-pulse"></div>
-          <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-20 animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-25 animate-pulse" style={{ animationDelay: '2s' }}></div>
-        </div>
-
-        {/* Corner accents */}
-        <div className="absolute top-0 left-0 w-32 h-32 border-l-4 border-t-4 border-white opacity-20"></div>
-        <div className="absolute top-0 right-0 w-32 h-32 border-r-4 border-t-4 border-white opacity-20"></div>
-        <div className="absolute bottom-0 left-0 w-32 h-32 border-l-4 border-b-4 border-white opacity-20"></div>
-        <div className="absolute bottom-0 right-0 w-32 h-32 border-r-4 border-b-4 border-white opacity-20"></div>
+        <p className="mt-2 text-xs text-white/60">{Math.round(progress)}% • Please wait</p>
       </div>
-
-      {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center space-y-6">
-        <div className="relative">
-          {/* Custom automotive spinner */}
-          <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-          <div className="absolute inset-0 w-16 h-16 border-4 border-transparent border-r-white rounded-full animate-spin" style={{ animationDuration: '1.5s', animationDirection: 'reverse' }}></div>
-        </div>
-        
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-white mb-2 tracking-wider">
-            ALOK AUTOMOBILES
-          </h2>
-          <div className="w-24 h-0.5 bg-white mx-auto mb-3"></div>
-          <p className="text-gray-300 text-sm font-medium tracking-wide">
-            Loading your automotive solutions...
-          </p>
-        </div>
-      </div>
-
-      <style jsx>{`
-        @keyframes gradientShift {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-      `}</style>
     </div>
   );
 }

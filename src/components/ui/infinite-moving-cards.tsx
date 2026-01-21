@@ -2,7 +2,6 @@
 
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState, useCallback } from "react";
-import Image from "next/image";
 
 export const InfiniteMovingCards = ({
   items,
@@ -13,7 +12,6 @@ export const InfiniteMovingCards = ({
 }: {
   items: {
     name: string;
-    logo: string;
   }[];
   direction?: "left" | "right";
   speed?: "fast" | "normal" | "slow";
@@ -84,36 +82,23 @@ export const InfiniteMovingCards = ({
       <ul
         ref={scrollerRef}
         className={cn(
-          "flex w-max min-w-full shrink-0 flex-nowrap gap-4 py-4",
+          "flex w-max min-w-full shrink-0 flex-nowrap gap-3 py-4",
           start && "animate-scroll",
           pauseOnHover && "hover:[animation-play-state:paused]",
         )}
       >
-         {items.map((item) => (
-           <li
-             className="relative w-[120px] max-w-full shrink-0 rounded-lg border border-zinc-200 bg-white px-3 py-3 md:w-[150px] dark:border-zinc-700 dark:bg-zinc-800 hover:shadow-md transition-shadow duration-300"
-             key={item.name}
-           >
-             <div className="flex items-center justify-center h-12 md:h-14">
-               <Image
-                 src={item.logo}
-                 alt={`${item.name} logo`}
-                 width={120}
-                 height={48}
-                 className="max-h-full max-w-full object-contain"
-                 onError={(e) => {
-                   // Fallback to text if logo fails to load
-                   const target = e.target as HTMLImageElement;
-                   target.style.display = 'none';
-                   const parent = target.parentElement;
-                   if (parent) {
-                     parent.innerHTML = `<span class="text-lg font-bold text-gray-700 dark:text-gray-300">${item.name}</span>`;
-                   }
-                 }}
-               />
-             </div>
-           </li>
-         ))}
+        {items.map((item) => (
+          <li
+            className="relative max-w-full shrink-0 rounded-full border border-zinc-200 bg-white px-4 py-2 md:px-6 md:py-3 dark:border-zinc-700 dark:bg-zinc-800 shadow-sm"
+            key={item.name}
+          >
+            <div className="flex items-center justify-center">
+              <span className="text-sm md:text-base font-semibold tracking-wide text-gray-800 dark:text-gray-100">
+                {item.name}
+              </span>
+            </div>
+          </li>
+        ))}
       </ul>
     </div>
   );
