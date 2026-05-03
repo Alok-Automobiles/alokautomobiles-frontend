@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "next telemetry disable && next build"
+    "postinstall": "next telemetry disable"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.15",
