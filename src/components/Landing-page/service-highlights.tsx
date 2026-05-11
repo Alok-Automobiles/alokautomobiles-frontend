@@ -44,14 +44,14 @@ export function ServiceHighlights() {
       <div className="grid grid-cols-12 gap-6 md:gap-10 mb-12 md:mb-16">
         <div className="col-span-12 md:col-span-5">
           <p className="eyebrow text-[var(--amber-deep)] mb-4">§ 04 · Workshop</p>
-          <h2 className="font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em]">
+          <h2 className="font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em] text-[var(--foreground)]">
             Why fleets keep
             <br />
             coming <span className="italic amber-mark">back.</span>
           </h2>
         </div>
         <div className="col-span-12 md:col-span-6 md:col-start-7 pt-2">
-          <p className="text-base md:text-lg text-[var(--ink)]/80 leading-relaxed">
+          <p className="text-base leading-relaxed text-[var(--foreground)]/80 md:text-lg">
             We aren&apos;t a catalogue with a phone number. We&apos;re a counter,
             a bay, and a thousand relationships tied together by two decades
             of service. Here&apos;s what that buys you.
@@ -64,24 +64,24 @@ export function ServiceHighlights() {
         {ITEMS.map((item) => (
           <article
             key={item.n}
-            className="group relative p-6 md:p-8 flex flex-col gap-6 min-h-[340px] transition-colors duration-500 hover:bg-[var(--paper)]"
+            className="group relative flex min-h-[340px] flex-col gap-6 p-6 transition-colors duration-500 hover:bg-[var(--paper)] hover:text-[var(--ink)] md:p-8"
           >
             <div className="flex items-start justify-between">
-              <span className="font-mono text-xs uppercase tracking-[0.28em] text-[var(--muted-foreground)]">
+              <span className="font-mono text-xs uppercase tracking-[0.28em] text-[var(--muted-foreground)] group-hover:text-[var(--ink)]/60">
                 / {item.n}
               </span>
-              <span className="flex items-center justify-center w-10 h-10 rounded-full border border-[var(--border)] text-[var(--ink)] group-hover:bg-[var(--amber)] group-hover:border-[var(--amber)] transition-colors">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] text-[var(--foreground)] transition-colors group-hover:border-[var(--amber)] group-hover:bg-[var(--amber)] group-hover:text-[var(--ink)]">
                 {item.icon}
               </span>
             </div>
 
             <div>
-              <h3 className="font-display text-2xl md:text-3xl leading-tight tracking-tight">
+              <h3 className="font-display text-2xl leading-tight tracking-tight text-[var(--foreground)] group-hover:text-[var(--ink)] md:text-3xl">
                 {item.title}
               </h3>
             </div>
 
-            <p className="text-sm text-[var(--ink)]/75 leading-relaxed mt-auto">
+            <p className="mt-auto text-sm leading-relaxed text-[var(--foreground)]/75 group-hover:text-[var(--ink)]/80">
               {item.body}
             </p>
 

@@ -82,7 +82,7 @@ export function CategoryCard({
         </ul>
 
         <div className="mt-6 pt-4 border-t border-[var(--border)] flex items-center justify-between">
-          <span className="text-xs font-medium link-edit">{ctaLabel} →</span>
+          <span className="link-edit inline-block text-xs font-medium">{ctaLabel} →</span>
           <span className="eyebrow">In stock</span>
         </div>
       </div>

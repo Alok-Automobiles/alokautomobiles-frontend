@@ -46,10 +46,10 @@ export function SiteHeader() {
           </div>
           <a
             href="tel:+919838397109"
-            className="flex items-center gap-2 hover:text-[var(--amber)] transition-colors link-edit"
+            className="link-edit inline-flex shrink-0 items-center gap-2 whitespace-nowrap hover:text-[var(--amber)] transition-colors"
           >
-            <Phone className="h-3 w-3" />
-            +91 98383 97109
+            <Phone className="h-3 w-3 shrink-0" aria-hidden />
+            <span>+91 98383 97109</span>
           </a>
         </div>
       </div>
@@ -90,17 +90,17 @@ export function SiteHeader() {
             </div>
           </Link>
 
-          <nav aria-label="Primary" className="hidden lg:flex items-baseline gap-8">
+          <nav aria-label="Primary" className="hidden lg:flex items-center gap-8">
             {NAV.map((n) => (
               <Link
                 key={n.href}
                 href={n.href}
-                className="group inline-flex items-baseline gap-3 link-edit text-sm"
+                className="link-edit group inline-flex items-center gap-2.5 text-sm"
               >
-                <span className="font-mono text-[10px] leading-none text-[var(--muted-foreground)] tracking-widest">
+                <span className="font-mono text-[10px] text-[var(--muted-foreground)] tracking-widest tabular-nums">
                   {n.index}
                 </span>
-                <span className="font-medium leading-none">{t(n.labelKey)}</span>
+                <span className="font-medium">{t(n.labelKey)}</span>
               </Link>
             ))}
           </nav>

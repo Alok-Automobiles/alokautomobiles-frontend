@@ -116,7 +116,7 @@ export function FeaturedParts() {
       <div className="grid grid-cols-12 gap-6 md:gap-10 mb-10 md:mb-14">
         <div className="col-span-12 md:col-span-6">
           <p className="eyebrow text-[var(--amber-deep)] mb-4">§ 11 · Featured inventory</p>
-          <h2 className="font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em]">
+          <h2 className="font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em] text-[var(--ink)]">
             A taste of the
             <br />
             <span className="italic amber-mark">counter.</span>
@@ -172,7 +172,7 @@ export function FeaturedParts() {
               className="group relative flex flex-col bg-[var(--paper)] border border-[var(--border)] rounded-sm overflow-hidden hover:border-[var(--ink)] transition-colors p-5"
             >
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink)]/55">
                   {p.brand}
                 </span>
                 <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--amber-deep)]">
@@ -180,7 +180,7 @@ export function FeaturedParts() {
                 </span>
               </div>
 
-              <h3 className="font-display text-xl md:text-2xl mt-2 leading-tight tracking-tight">
+              <h3 className="font-display text-xl md:text-2xl mt-2 leading-tight tracking-tight text-[var(--ink)]">
                 {p.name}
               </h3>
               <p className="mt-2 text-sm text-[var(--ink)]/70 leading-relaxed">{p.blurb}</p>
@@ -198,7 +198,7 @@ export function FeaturedParts() {
 
               <div className="mt-5 pt-4 border-t border-dashed border-[var(--border)] flex items-end justify-between">
                 <div>
-                  <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+                  <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-[var(--ink)]/55">
                     {p.grade}
                   </div>
                   <div className="font-display text-base md:text-lg text-[var(--ink)] mt-0.5">
@@ -215,7 +215,7 @@ export function FeaturedParts() {
       </AnimatePresence>
 
       {filtered.length === 0 && (
-        <div className="text-center py-12 font-mono text-sm uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+        <div className="text-center py-12 font-mono text-sm uppercase tracking-[0.22em] text-[var(--ink)]/55">
           Nothing matches — ring the counter, we almost certainly have it.
         </div>
       )}

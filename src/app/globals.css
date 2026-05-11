@@ -12,7 +12,7 @@
   --ash: #1d1b15;           /* warm dark surface */
   --steel: #2a2720;         /* borders/dividers on dark */
   --bone: #efe7d2;          /* primary ivory / light bg */
-  --paper: #f6f1e0;         /* lighter paper */
+  --paper: #f6f1e0;         /* lighter paper — fixed cream; use var(--ink) text, not theme foreground */
   --linen: #e3d9bd;         /* slightly deeper bone */
   --amber: #e6a10a;         /* diesel amber — primary accent */
   --amber-2: #f5c047;       /* highlight amber */
@@ -338,10 +338,10 @@
   outline-offset: 3px;
 }
 
-/* Link — editorial underline */
+/* Link — editorial underline (no display here: Tailwind flex/inline-flex on the
+   same element must win; forcing inline-block was collapsing gap in the header) */
 .link-edit {
   position: relative;
-  display: inline-block;
 }
 .link-edit::after {
   content: "";

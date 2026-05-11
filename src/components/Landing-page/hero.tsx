@@ -33,7 +33,7 @@ export function Hero() {
       </div>
 
       <div className="container mx-auto px-4 md:px-8 pt-14 md:pt-20 pb-24 md:pb-32">
-        <div className="grid grid-cols-12 gap-6 md:gap-10 items-start">
+        <div className="grid grid-cols-12 gap-y-10 gap-x-4 md:gap-x-5 lg:gap-x-6 items-start">
           {/* LEFT */}
           <div className="col-span-12 lg:col-span-7 relative">
             <motion.p
@@ -131,7 +131,7 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.25, duration: 0.9, ease: [0.22, 0.8, 0.22, 1] }}
-            className="col-span-12 lg:col-span-5 relative"
+            className="col-span-12 lg:col-span-5 relative min-w-0"
           >
             <TruckPanel />
           </motion.div>

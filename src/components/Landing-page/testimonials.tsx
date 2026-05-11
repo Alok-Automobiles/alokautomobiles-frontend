@@ -86,7 +86,7 @@ export function Testimonials() {
         </div>
       </div>
 
-      <div className="relative rounded-sm border border-[var(--border)] bg-[var(--paper)] overflow-hidden">
+      <div className="relative overflow-hidden rounded-sm border border-[var(--border)] bg-[var(--paper)] text-[var(--ink)]">
         {/* corner ticks */}
         <span className="absolute top-3 left-3 w-5 h-5 border-t border-l border-[var(--ink)]/40" />
         <span className="absolute top-3 right-3 w-5 h-5 border-t border-r border-[var(--ink)]/40" />
@@ -120,8 +120,8 @@ export function Testimonials() {
                 </div>
                 <div className="font-mono text-xs uppercase tracking-[0.22em] text-[var(--ink)]/80">
                   <span className="font-medium text-[var(--ink)] not-italic">{q.name}</span>
-                  <span className="text-[var(--muted-foreground)]"> &nbsp;·&nbsp; {q.role}</span>
-                  <span className="text-[var(--muted-foreground)]"> &nbsp;·&nbsp; {q.place}</span>
+                  <span className="text-[var(--ink)]/55"> &nbsp;·&nbsp; {q.role}</span>
+                  <span className="text-[var(--ink)]/55"> &nbsp;·&nbsp; {q.place}</span>
                 </div>
               </div>
             </motion.blockquote>

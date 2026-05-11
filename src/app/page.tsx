@@ -97,7 +97,11 @@ export default function HomePage() {
       </section>
 
       {/* Featured parts */}
-      <section id="featured" aria-label="Featured inventory" className="relative bg-[var(--paper)] border-y border-[var(--border)]">
+      <section
+        id="featured"
+        aria-label="Featured inventory"
+        className="relative border-y border-[var(--border)] bg-[var(--paper)] text-[var(--ink)]"
+      >
         <div className="container mx-auto px-4 md:px-8 py-20 md:py-28">
           <FeaturedParts />
         </div>
@@ -111,7 +115,10 @@ export default function HomePage() {
       </section>
 
       {/* Process timeline */}
-      <section aria-label="How we work" className="relative bg-[var(--paper)] border-y border-[var(--border)]">
+      <section
+        aria-label="How we work"
+        className="relative border-y border-[var(--border)] bg-[var(--paper)] text-[var(--ink)]"
+      >
         <div className="container mx-auto px-4 md:px-8 py-20 md:py-28">
           <ProcessTimeline />
         </div>
@@ -125,7 +132,10 @@ export default function HomePage() {
       </section>
 
       {/* Vehicles served */}
-      <section aria-label="Vehicles we serve" className="relative bg-[var(--paper)] border-y border-[var(--border)]">
+      <section
+        aria-label="Vehicles we serve"
+        className="relative border-y border-[var(--border)] bg-[var(--paper)] text-[var(--ink)]"
+      >
         <div className="container mx-auto px-4 md:px-8 py-20 md:py-28">
           <VehiclesWall />
         </div>
@@ -139,7 +149,10 @@ export default function HomePage() {
       </section>
 
       {/* Field notes */}
-      <section aria-label="Field notes" className="relative bg-[var(--paper)] border-y border-[var(--border)]">
+      <section
+        aria-label="Field notes"
+        className="relative border-y border-[var(--border)] bg-[var(--paper)] text-[var(--ink)]"
+      >
         <div className="container mx-auto px-4 md:px-8 py-20 md:py-28">
           <FieldNotes />
         </div>
