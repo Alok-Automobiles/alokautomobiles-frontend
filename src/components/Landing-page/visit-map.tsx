@@ -91,7 +91,7 @@ export function VisitMap() {
           </InfoCard>
 
           <InfoCard icon={<Phone className="w-4 h-4" />} label="Phone">
-            <a href={SITE.phoneHref} className="link-edit font-mono">
+            <a href={SITE.phoneHref} className="link-edit inline-block font-mono">
               {SITE.phone}
             </a>
           </InfoCard>

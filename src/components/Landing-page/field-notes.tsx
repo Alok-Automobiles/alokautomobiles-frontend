@@ -48,7 +48,7 @@ export function FieldNotes() {
       <div className="grid grid-cols-12 gap-6 md:gap-10 mb-10 md:mb-14">
         <div className="col-span-12 md:col-span-6">
           <p className="eyebrow text-[var(--amber-deep)] mb-4">§ 12 · Field notes</p>
-          <h2 className="font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em]">
+          <h2 className="font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em] text-[var(--ink)]">
             What the counter
             <br />
             <span className="italic">tells us.</span>
@@ -74,13 +74,13 @@ export function FieldNotes() {
             className="group relative flex flex-col p-6 md:p-8 bg-[var(--paper)] border border-[var(--border)] rounded-sm min-h-[340px] hover:border-[var(--ink)] transition-colors"
           >
             <div className="flex items-center justify-between mb-6">
-              <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--muted-foreground)]">
+              <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--ink)]/55">
                 N° {n.n} · {n.category}
               </span>
               <BookOpen className="h-4 w-4 text-[var(--amber-deep)] opacity-60 group-hover:opacity-100 transition" />
             </div>
 
-            <h3 className="font-display text-2xl md:text-3xl leading-tight tracking-tight">
+            <h3 className="font-display text-2xl md:text-3xl leading-tight tracking-tight text-[var(--ink)]">
               {n.title}
             </h3>
 
@@ -88,7 +88,7 @@ export function FieldNotes() {
               {n.excerpt}
             </p>
 
-            <div className="mt-auto pt-6 flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.28em] text-[var(--muted-foreground)]">
+            <div className="mt-auto pt-6 flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.28em] text-[var(--ink)]/55">
               <span>{n.readTime}</span>
               <span>{n.date}</span>
             </div>
@@ -98,7 +98,7 @@ export function FieldNotes() {
         ))}
       </div>
 
-      <p className="mt-6 text-[10px] font-mono uppercase tracking-[0.28em] text-[var(--muted-foreground)]">
+      <p className="mt-6 text-[10px] font-mono uppercase tracking-[0.28em] text-[var(--ink)]/55">
         ◆ &nbsp;New notes published monthly. Written at the counter, not in an office.
       </p>
     </div>

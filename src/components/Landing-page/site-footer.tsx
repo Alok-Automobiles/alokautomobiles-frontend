@@ -138,7 +138,10 @@ export function SiteFooter() {
 function FLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <li>
-      <Link href={href} className="link-edit text-[var(--bone)]/80 hover:text-[var(--bone)]">
+      <Link
+        href={href}
+        className="link-edit inline-block text-[var(--bone)]/80 hover:text-[var(--bone)]"
+      >
         {children}
       </Link>
     </li>

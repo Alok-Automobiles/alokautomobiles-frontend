@@ -49,7 +49,7 @@ export function ProcessTimeline() {
       <div className="grid grid-cols-12 gap-6 md:gap-10 mb-10 md:mb-14">
         <div className="col-span-12 md:col-span-6">
           <p className="eyebrow text-[var(--amber-deep)] mb-4">§ 08 · How we work</p>
-          <h2 className="font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em]">
+          <h2 className="font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em] text-[var(--ink)]">
             From enquiry to
             <br />
             <span className="italic">on-the-lorry.</span>
@@ -95,7 +95,7 @@ export function ProcessTimeline() {
               <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--amber-deep)] md:block">
                 / {s.n} · {s.time}
               </span>
-              <h3 className="font-display text-2xl md:text-3xl mt-2 tracking-tight">
+              <h3 className="font-display mt-2 text-2xl tracking-tight text-[var(--ink)] md:text-3xl">
                 {s.title}
               </h3>
               <p className="mt-3 text-sm text-[var(--ink)]/75 leading-relaxed max-w-xs">
