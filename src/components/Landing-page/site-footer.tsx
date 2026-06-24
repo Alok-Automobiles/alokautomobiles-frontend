@@ -32,7 +32,7 @@ export function SiteFooter() {
 
       {/* Districts served band */}
       <div className="relative border-b border-[var(--bone)]/10">
-        <div className="container mx-auto px-4 md:px-8 py-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+        <div className="site-container py-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
           <span className="eyebrow text-[var(--bone)]/60">Districts we serve</span>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-[var(--bone)]/80">
             {SITE.districts.map((d, i) => (
@@ -48,7 +48,7 @@ export function SiteFooter() {
       </div>
 
       {/* Columns */}
-      <div className="relative container mx-auto px-4 md:px-8 py-16 grid grid-cols-12 gap-6 md:gap-10">
+      <div className="site-container relative py-16 grid grid-cols-12 gap-6 md:gap-10">
         <div className="col-span-12 md:col-span-5">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-full overflow-hidden ring-1 ring-[var(--bone)]/20 bg-[var(--paper)]">
@@ -125,7 +125,7 @@ export function SiteFooter() {
       </div>
 
       <div className="relative border-t border-[var(--bone)]/10">
-        <div className="container mx-auto px-4 md:px-8 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--bone)]/50">
+        <div className="site-container py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--bone)]/50">
           <span>© {new Date().getFullYear()} {SITE.name} · All rights reserved</span>
           <span className="text-[var(--amber)]">◆ &nbsp;Made in Varanasi</span>
           <span>Trademarks belong to their respective owners</span>

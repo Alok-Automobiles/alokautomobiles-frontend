@@ -23,7 +23,7 @@ export default function NotFound() {
       </div>
 
       <div className="relative z-10 flex-1 flex items-center">
-        <div className="container mx-auto px-6 md:px-10 py-20 grid grid-cols-12 gap-8 items-center">
+        <div className="site-container py-20 grid grid-cols-12 gap-8 items-center">
           <div className="col-span-12 md:col-span-7">
             <p className="eyebrow text-[var(--amber)] mb-4">Breakdown</p>
             <h1 className="font-display font-light leading-[0.88] tracking-[-0.03em] text-[18vw] md:text-[13vw] lg:text-[11rem]">

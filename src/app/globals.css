@@ -274,6 +274,13 @@
   letter-spacing: 0.24em;
 }
 
+.site-container {
+  --site-gutter: clamp(1rem, 3.5vw, 2rem);
+  --site-max: 106rem;
+  width: min(calc(100% - (var(--site-gutter) * 2)), var(--site-max));
+  margin-inline: auto;
+}
+
 /* Zero-specificity color default via :where() — any Tailwind text-* utility
    on the same element always wins. */
 .eyebrow {

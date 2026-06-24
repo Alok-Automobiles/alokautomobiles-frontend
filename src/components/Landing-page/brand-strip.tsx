@@ -22,7 +22,7 @@ export function BrandStrip() {
     <div className="relative bg-[var(--ink)] text-[var(--bone)] overflow-hidden">
       <div className="pointer-events-none absolute inset-0 grain opacity-50" />
 
-      <div className="container mx-auto px-4 md:px-8 pt-10 pb-4">
+      <div className="site-container pt-10 pb-4">
         <div className="flex items-end justify-between gap-6 mb-6">
           <div>
             <p className="eyebrow text-[var(--amber)]">§ 02 · Partners</p>
@@ -51,7 +51,7 @@ export function BrandStrip() {
       />
 
       {/* bottom meta */}
-      <div className="container mx-auto px-4 md:px-8 py-6 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--bone)]/50">
+      <div className="site-container py-6 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--bone)]/50">
         <span>{BRANDS.length}+ brands indexed</span>
         <span className="text-[var(--amber)]">◆</span>
         <span>Varanasi · UP · IND</span>

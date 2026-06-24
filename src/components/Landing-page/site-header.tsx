@@ -30,9 +30,9 @@ export function SiteHeader() {
   return (
     <>
       {/* Announcement strip */}
-      <div className="bg-[var(--ink)] text-[var(--bone)] text-[11px] font-mono uppercase tracking-[0.28em]">
-        <div className="container mx-auto px-4 md:px-8 h-9 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+      <div className="bg-[var(--ink)] text-[var(--bone)] text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.28em]">
+        <div className="site-container min-h-10 grid grid-cols-[minmax(0,1fr)_auto] md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4">
+          <div className="flex min-w-0 items-center gap-3">
             <span className="relative flex h-2 w-2">
               <span className="absolute inset-0 rounded-full bg-[var(--amber)] animate-pulse-amber" />
               <span className="relative rounded-full h-2 w-2 bg-[var(--amber)]" />
@@ -40,13 +40,13 @@ export function SiteHeader() {
             <span className="hidden sm:inline">Open · Mon–Sat · 9am–7pm</span>
             <span className="sm:hidden">Open now</span>
           </div>
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center justify-self-center gap-6 whitespace-nowrap">
             <span className="text-[var(--bone)]/70">Est. 2005</span>
             <span className="text-[var(--bone)]/70">Varanasi, UP</span>
           </div>
           <a
             href="tel:+919838397109"
-            className="link-edit inline-flex shrink-0 items-center gap-2 whitespace-nowrap hover:text-[var(--amber)] transition-colors"
+            className="link-edit inline-flex shrink-0 items-center justify-self-end gap-2 whitespace-nowrap hover:text-[var(--amber)] transition-colors"
           >
             <Phone className="h-3 w-3 shrink-0" aria-hidden />
             <span>+91 98383 97109</span>
@@ -62,10 +62,10 @@ export function SiteHeader() {
             : "bg-transparent"
         }`}
       >
-        <div className="container mx-auto px-4 md:px-8 h-16 md:h-20 flex items-center justify-between">
+        <div className="site-container h-[4.5rem] md:h-20 grid grid-cols-[minmax(0,1fr)_auto] xl:grid-cols-[minmax(16rem,1fr)_auto_minmax(16rem,1fr)] items-center gap-4">
           <Link
             href="/"
-            className="flex items-center gap-3 group"
+            className="group flex min-w-0 items-center gap-3 justify-self-start"
             aria-label="Alok Automobiles home"
           >
             <div className="relative">
@@ -81,16 +81,16 @@ export function SiteHeader() {
               <span className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-[var(--amber)] ring-2 ring-[var(--background)]" />
             </div>
             <div className="flex flex-col leading-tight">
-              <span className="font-display text-lg md:text-xl font-medium tracking-tight">
+              <span className="font-display whitespace-nowrap text-lg md:text-xl font-medium tracking-tight">
                 Alok <span className="italic opacity-80">Automobiles</span>
               </span>
-              <span className="text-[10px] font-mono uppercase tracking-[0.28em] text-[var(--muted-foreground)]">
+              <span className="hidden sm:block text-[10px] font-mono uppercase tracking-[0.28em] text-[var(--muted-foreground)]">
                 Parts · Oils · Since 2005
               </span>
             </div>
           </Link>
 
-          <nav aria-label="Primary" className="hidden lg:flex items-center gap-8">
+          <nav aria-label="Primary" className="hidden xl:flex items-center justify-center gap-7 justify-self-center">
             {NAV.map((n) => (
               <Link
                 key={n.href}
@@ -105,10 +105,11 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center justify-self-end gap-2">
             {/* Language toggle */}
-            <div className="hidden md:flex items-center rounded-full border border-[var(--border)] overflow-hidden h-9 text-[10px] font-mono uppercase tracking-[0.22em]">
+            <div className="hidden lg:flex items-center rounded-full border border-[var(--border)] bg-[var(--card)]/60 overflow-hidden h-10 text-[10px] font-mono uppercase tracking-[0.22em]">
               <button
+                type="button"
                 onClick={() => setLang("en")}
                 className={`px-3 h-full transition-colors ${
                   lang === "en"
@@ -120,6 +121,7 @@ export function SiteHeader() {
                 EN
               </button>
               <button
+                type="button"
                 onClick={() => setLang("hi")}
                 className={`px-3 h-full transition-colors ${
                   lang === "hi"
@@ -134,9 +136,10 @@ export function SiteHeader() {
 
             {/* Theme toggle */}
             <button
+              type="button"
               onClick={toggle}
               aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-              className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-[var(--border)] hover:bg-[var(--paper)] transition-colors"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--card)]/60 hover:bg-[var(--paper)] transition-colors"
             >
               {theme === "dark" ? (
                 <Sun className="h-4 w-4" />
@@ -147,16 +150,17 @@ export function SiteHeader() {
 
             <Link
               href="#part-finder"
-              className="group hidden md:inline-flex items-center gap-2 h-9 px-4 rounded-full bg-[var(--ink)] text-[var(--bone)] text-xs font-medium tracking-tight hover:bg-[var(--amber)] hover:text-[var(--ink)] transition-colors"
+              className="group hidden md:inline-flex h-10 items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--card)]/70 px-4 text-xs font-medium tracking-tight text-[var(--foreground)] hover:border-[var(--amber)] hover:bg-[var(--amber)] hover:text-[var(--ink)] transition-colors"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-[var(--amber)] group-hover:bg-[var(--ink)] transition-colors" />
               {t("cta.quote")}
             </Link>
             <button
+              type="button"
               onClick={() => setOpen((v) => !v)}
               aria-label="Toggle menu"
               aria-expanded={open}
-              className="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-full border border-[var(--border)] bg-[var(--paper)]"
+              className="xl:hidden inline-flex items-center justify-center w-10 h-10 rounded-full border border-[var(--border)] bg-[var(--card)]"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -165,11 +169,11 @@ export function SiteHeader() {
 
         {/* Mobile menu */}
         <div
-          className={`lg:hidden overflow-hidden transition-[max-height] duration-500 ease-out ${
+          className={`xl:hidden overflow-hidden border-t border-[var(--border)] bg-[var(--background)]/96 backdrop-blur-xl transition-[max-height] duration-500 ease-out ${
             open ? "max-h-[520px]" : "max-h-0"
           }`}
         >
-          <div className="container mx-auto px-4 pb-6 pt-2 bg-[var(--background)]/96 backdrop-blur-xl border-t border-[var(--border)]">
+          <div className="site-container pb-6 pt-2">
             <ul className="flex flex-col divide-y divide-[var(--border)]">
               {NAV.map((n) => (
                 <li key={n.href}>
@@ -190,6 +194,7 @@ export function SiteHeader() {
             <div className="flex items-center gap-2 mt-4">
               <div className="flex-1 flex items-center rounded-full border border-[var(--border)] overflow-hidden h-10 text-[11px] font-mono uppercase tracking-[0.22em]">
                 <button
+                  type="button"
                   onClick={() => setLang("en")}
                   className={`flex-1 h-full ${
                     lang === "en" ? "bg-[var(--ink)] text-[var(--bone)]" : ""
@@ -198,6 +203,7 @@ export function SiteHeader() {
                   EN
                 </button>
                 <button
+                  type="button"
                   onClick={() => setLang("hi")}
                   className={`flex-1 h-full ${
                     lang === "hi" ? "bg-[var(--ink)] text-[var(--bone)]" : ""
@@ -207,6 +213,7 @@ export function SiteHeader() {
                 </button>
               </div>
               <button
+                type="button"
                 onClick={toggle}
                 aria-label="Toggle theme"
                 className="w-10 h-10 rounded-full border border-[var(--border)] inline-flex items-center justify-center"
