@@ -21,19 +21,19 @@ export function Hero() {
 
       {/* Top technical strip */}
       <div className="relative border-b border-[var(--border)]/80">
-        <div className="container mx-auto px-4 md:px-8 h-10 flex items-center justify-between gap-6 font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--muted-foreground)]">
-          <span>Dossier · 01 / Landing</span>
-          <div className="hidden md:flex items-center gap-6">
+        <div className="site-container h-10 grid grid-cols-[minmax(0,1fr)_auto] md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-6 font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--muted-foreground)]">
+          <span className="min-w-0">Dossier · 01 / Landing</span>
+          <div className="hidden md:flex items-center justify-self-center gap-6 whitespace-nowrap">
             <Meta label="LAT" value="25.28°N" />
             <Meta label="LON" value="82.99°E" />
             <Meta label="Est." value={SITE.founded} />
           </div>
-          <span className="text-[var(--amber-deep)]">◆ &nbsp;Varanasi · UP</span>
+          <span className="justify-self-end whitespace-nowrap text-[var(--amber-deep)]">◆ &nbsp;Varanasi · UP</span>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 md:px-8 pt-14 md:pt-20 pb-24 md:pb-32">
-        <div className="grid grid-cols-12 gap-y-10 gap-x-4 md:gap-x-5 lg:gap-x-6 items-start">
+      <div className="site-container pt-14 md:pt-20 pb-24 md:pb-32">
+        <div className="grid grid-cols-12 gap-y-10 gap-x-6 lg:gap-x-10 xl:gap-x-12 items-start">
           {/* LEFT */}
           <div className="col-span-12 lg:col-span-7 relative">
             <motion.p

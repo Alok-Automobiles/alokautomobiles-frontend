@@ -23,7 +23,7 @@ export default function HomePage() {
 
       {/* Part finder — high on the page for conversion */}
       <section aria-label="Find a part" className="relative">
-        <div className="container mx-auto px-4 md:px-8 pt-16 md:pt-24 pb-4">
+        <div className="site-container pt-16 md:pt-24 pb-4">
           <PartFinder />
         </div>
       </section>
@@ -35,7 +35,7 @@ export default function HomePage() {
 
       {/* Inventory */}
       <section id="inventory" aria-label="Inventory" className="relative">
-        <div className="container mx-auto px-4 md:px-8 py-20 md:py-28">
+        <div className="site-container py-20 md:py-28">
           <div className="grid grid-cols-12 gap-6 md:gap-10 mb-12 md:mb-16">
             <div className="col-span-12 md:col-span-7">
               <p className="eyebrow text-[var(--amber-deep)] mb-4">§ 03 · Inventory</p>
@@ -102,14 +102,14 @@ export default function HomePage() {
         aria-label="Featured inventory"
         className="relative border-y border-[var(--border)] bg-[var(--paper)] text-[var(--ink)]"
       >
-        <div className="container mx-auto px-4 md:px-8 py-20 md:py-28">
+        <div className="site-container py-20 md:py-28">
           <FeaturedParts />
         </div>
       </section>
 
       {/* Workshop / Why us */}
       <section id="workshop" aria-label="Why choose us" className="relative">
-        <div className="container mx-auto px-4 md:px-8 py-20 md:py-28">
+        <div className="site-container py-20 md:py-28">
           <ServiceHighlights />
         </div>
       </section>
@@ -119,14 +119,14 @@ export default function HomePage() {
         aria-label="How we work"
         className="relative border-y border-[var(--border)] bg-[var(--paper)] text-[var(--ink)]"
       >
-        <div className="container mx-auto px-4 md:px-8 py-20 md:py-28">
+        <div className="site-container py-20 md:py-28">
           <ProcessTimeline />
         </div>
       </section>
 
       {/* Testimonials */}
       <section aria-label="Testimonials" className="relative">
-        <div className="container mx-auto px-4 md:px-8 py-20 md:py-28">
+        <div className="site-container py-20 md:py-28">
           <Testimonials />
         </div>
       </section>
@@ -136,14 +136,14 @@ export default function HomePage() {
         aria-label="Vehicles we serve"
         className="relative border-y border-[var(--border)] bg-[var(--paper)] text-[var(--ink)]"
       >
-        <div className="container mx-auto px-4 md:px-8 py-20 md:py-28">
+        <div className="site-container py-20 md:py-28">
           <VehiclesWall />
         </div>
       </section>
 
       {/* Workshop gallery */}
       <section aria-label="Inside the workshop" className="relative">
-        <div className="container mx-auto px-4 md:px-8 py-20 md:py-28">
+        <div className="site-container py-20 md:py-28">
           <WorkshopGallery />
         </div>
       </section>
@@ -153,21 +153,21 @@ export default function HomePage() {
         aria-label="Field notes"
         className="relative border-y border-[var(--border)] bg-[var(--paper)] text-[var(--ink)]"
       >
-        <div className="container mx-auto px-4 md:px-8 py-20 md:py-28">
+        <div className="site-container py-20 md:py-28">
           <FieldNotes />
         </div>
       </section>
 
       {/* Visit / map */}
       <section id="visit" aria-label="Visit the shop" className="relative">
-        <div className="container mx-auto px-4 md:px-8 py-20 md:py-28">
+        <div className="site-container py-20 md:py-28">
           <VisitMap />
         </div>
       </section>
 
       {/* Contact */}
       <section id="contact" aria-label="Contact">
-        <div className="container mx-auto px-4 md:px-8 py-16 md:py-24">
+        <div className="site-container py-16 md:py-24">
           <ContactCTA />
         </div>
       </section>
