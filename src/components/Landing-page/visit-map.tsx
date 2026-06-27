@@ -2,14 +2,20 @@
 
 import { motion } from "framer-motion";
 import { MapPin, Clock, Phone, Navigation } from "lucide-react";
+import { useLang } from "@/components/providers/language-provider";
 import { SITE, mapsURL, mapsEmbedURL } from "@/lib/site";
 
 export function VisitMap() {
+  const { lang } = useLang();
+  const isHindi = lang === "hi";
+
   return (
     <div className="relative">
       <div className="grid grid-cols-12 gap-6 md:gap-10 mb-10 md:mb-14">
         <div className="col-span-12 md:col-span-6">
-          <p className="eyebrow text-[var(--amber-deep)] mb-4">§ 10 · Pay us a visit</p>
+          <p className="eyebrow text-[var(--amber-deep)] mb-4">
+            {isHindi ? "§ १० · दुकान पर आइए" : "§ 10 · Pay us a visit"}
+          </p>
           <h2 className="font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em]">
             Kaneri Road,
             <br />
@@ -18,8 +24,9 @@ export function VisitMap() {
         </div>
         <div className="col-span-12 md:col-span-5 md:col-start-8 pt-2">
           <p className="text-base md:text-lg text-[var(--ink)]/80 leading-relaxed">
-            Look for the Singh Petrol Pump — we&apos;re right opposite. The
-            counter is open six days a week. Stop by for a chai.
+            {isHindi
+              ? "Singh Petrol Pump के सामने हमारी दुकान है। काउंटर हफ्ते में छह दिन खुला रहता है। चाय के लिए भी आइए।"
+              : "Look for the Singh Petrol Pump — we're right opposite. The counter is open six days a week. Stop by for a chai."}
           </p>
         </div>
       </div>
@@ -49,7 +56,7 @@ export function VisitMap() {
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[var(--amber)] animate-pulse-amber" />
               <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-[var(--bone)]/70">
-                Open now · until 7pm
+                {isHindi ? "अभी खुला · शाम 7 बजे तक" : "Open now · until 7pm"}
               </span>
             </div>
             <div className="mt-2 font-display text-lg leading-tight">
@@ -67,14 +74,14 @@ export function VisitMap() {
               className="mt-3 inline-flex items-center gap-2 text-xs font-medium text-[var(--amber)] hover:text-[var(--bone)]"
             >
               <Navigation className="w-3 h-3" />
-              Get directions
+              {isHindi ? "रास्ता देखें" : "Get directions"}
             </a>
           </div>
         </motion.div>
 
         {/* Details side */}
         <div className="col-span-12 md:col-span-4 flex flex-col gap-4">
-          <InfoCard icon={<MapPin className="w-4 h-4" />} label="Address">
+          <InfoCard icon={<MapPin className="w-4 h-4" />} label={isHindi ? "पता" : "Address"}>
             {SITE.address.line1}
             <br />
             {SITE.address.line2}
@@ -82,15 +89,17 @@ export function VisitMap() {
             {SITE.address.region} — {SITE.address.postalCode}
           </InfoCard>
 
-          <InfoCard icon={<Clock className="w-4 h-4" />} label="Hours">
-            Monday – Saturday
+          <InfoCard icon={<Clock className="w-4 h-4" />} label={isHindi ? "समय" : "Hours"}>
+            {isHindi ? "सोमवार – शनिवार" : "Monday – Saturday"}
             <br />
             09:00 – 19:00
             <br />
-            <span className="text-[var(--muted-foreground)]">Sunday closed</span>
+            <span className="text-[var(--muted-foreground)]">
+              {isHindi ? "रविवार बंद" : "Sunday closed"}
+            </span>
           </InfoCard>
 
-          <InfoCard icon={<Phone className="w-4 h-4" />} label="Phone">
+          <InfoCard icon={<Phone className="w-4 h-4" />} label={isHindi ? "फ़ोन" : "Phone"}>
             <a href={SITE.phoneHref} className="link-edit inline-block font-mono">
               {SITE.phone}
             </a>
@@ -102,7 +111,7 @@ export function VisitMap() {
             rel="noreferrer"
             className="group relative mt-auto inline-flex items-center justify-between bg-[var(--ink)] text-[var(--bone)] px-5 py-4 rounded-sm overflow-hidden hover:bg-[var(--amber)] hover:text-[var(--ink)] transition-colors"
           >
-            <span className="font-display text-xl">Open in Maps</span>
+            <span className="font-display text-xl">{isHindi ? "Maps में खोलें" : "Open in Maps"}</span>
             <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[var(--amber)] text-[var(--ink)] group-hover:bg-[var(--ink)] group-hover:text-[var(--bone)] transition-colors">
               <Navigation className="w-4 h-4" />
             </span>

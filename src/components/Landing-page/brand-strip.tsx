@@ -1,5 +1,7 @@
 "use client";
 
+import { useLang } from "@/components/providers/language-provider";
+
 const BRANDS = [
   "Castrol",
   "Timken",
@@ -18,6 +20,9 @@ const BRANDS = [
 ];
 
 export function BrandStrip() {
+  const { lang } = useLang();
+  const isHindi = lang === "hi";
+
   return (
     <div className="relative bg-[var(--ink)] text-[var(--bone)] overflow-hidden">
       <div className="pointer-events-none absolute inset-0 grain opacity-50" />
@@ -25,16 +30,21 @@ export function BrandStrip() {
       <div className="site-container pt-10 pb-4">
         <div className="flex items-end justify-between gap-6 mb-6">
           <div>
-            <p className="eyebrow text-[var(--amber)]">§ 02 · Partners</p>
+            <p className="eyebrow text-[var(--amber)]">
+              {isHindi ? "§ ०२ · ब्रांड्स" : "§ 02 · Partners"}
+            </p>
             <h3 className="font-display text-3xl md:text-5xl leading-[0.95] mt-3">
-              Stocked by the names
+              {isHindi ? "जिन नामों पर" : "Stocked by the names"}
               <br />
-              <span className="italic text-[var(--bone)]/80">you already trust.</span>
+              <span className="italic text-[var(--bone)]/80">
+                {isHindi ? "आप भरोसा करते हैं।" : "you already trust."}
+              </span>
             </h3>
           </div>
           <p className="hidden md:block max-w-sm text-sm text-[var(--bone)]/70 pb-2">
-            Two decades of partnerships with OE and aftermarket makers.
-            Every part indexed, catalogued, guaranteed.
+            {isHindi
+              ? "OE और aftermarket makers के साथ दो दशक का रिश्ता। हर पार्ट indexed, catalogued और भरोसेमंद।"
+              : "Two decades of partnerships with OE and aftermarket makers. Every part indexed, catalogued, guaranteed."}
           </p>
         </div>
       </div>
@@ -52,7 +62,7 @@ export function BrandStrip() {
 
       {/* bottom meta */}
       <div className="site-container py-6 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--bone)]/50">
-        <span>{BRANDS.length}+ brands indexed</span>
+        <span>{isHindi ? `${BRANDS.length}+ ब्रांड indexed` : `${BRANDS.length}+ brands indexed`}</span>
         <span className="text-[var(--amber)]">◆</span>
         <span>Varanasi · UP · IND</span>
       </div>

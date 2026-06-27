@@ -9,14 +9,14 @@ type Dict = Record<string, { en: string; hi: string }>;
 /** Keys used across the site. Extend as needed — missing keys fall back
     to the English value. */
 const DICT: Dict = {
-  "nav.inventory": { en: "Inventory", hi: "पार्ट्स" },
+  "nav.inventory": { en: "Parts", hi: "पार्ट्स" },
   "nav.partners": { en: "Partners", hi: "ब्रांड्स" },
   "nav.workshop": { en: "Workshop", hi: "दुकान" },
   "nav.contact": { en: "Contact", hi: "संपर्क" },
   "cta.quote": { en: "Request a quote", hi: "क़ीमत जानें" },
   "cta.call": { en: "Call the workshop", hi: "फ़ोन करें" },
   "cta.whatsapp": { en: "Chat on WhatsApp", hi: "WhatsApp पर बात करें" },
-  "cta.explore": { en: "Explore inventory", hi: "पार्ट्स देखें" },
+  "cta.explore": { en: "Browse parts", hi: "पार्ट्स देखें" },
   "hero.eyebrow": {
     en: "A house of spare parts · Twenty years on",
     hi: "बीस साल से — पुर्ज़ों का भरोसेमंद घर",
@@ -31,6 +31,7 @@ const DICT: Dict = {
   "stat.years": { en: "Years in the trade", hi: "साल का अनुभव" },
   "stat.fleets": { en: "Fleets served", hi: "बेड़ों को सेवा" },
   "stat.brands": { en: "Partner brands", hi: "पार्टनर ब्रांड" },
+  "stat.districts": { en: "Districts served", hi: "ज़िलों में सेवा" },
   "section.inventory.eyebrow": { en: "§ 03 · Inventory", hi: "§ ०३ · पुर्ज़े" },
   "section.partners.eyebrow": { en: "§ 02 · Partners", hi: "§ ०२ · ब्रांड्स" },
   "section.workshop.eyebrow": { en: "§ 04 · Workshop", hi: "§ ०४ · दुकान" },

@@ -6,7 +6,8 @@ import { SITE, whatsappURL } from "@/lib/site";
 import { EnquiryForm } from "./enquiry-form";
 
 export function ContactCTA() {
-  const { t } = useLang();
+  const { lang, t } = useLang();
+  const isHindi = lang === "hi";
 
   return (
     <div className="relative w-full overflow-hidden bg-[var(--amber)] text-[var(--ink)] rounded-sm">
@@ -27,9 +28,9 @@ export function ContactCTA() {
           </h2>
 
           <p className="mt-6 max-w-xl text-base md:text-lg text-[var(--ink)]/80 leading-relaxed">
-            Tell us the make, the model, and the part number if you have it.
-            We&apos;ll confirm stock, quote a fair price, and have it on a
-            lorry before you&apos;ve finished your chai.
+            {isHindi
+              ? "Make, model और part number हो तो बताइए। हम stock confirm करेंगे, सही price बताएँगे और जल्दी dispatch करेंगे।"
+              : "Tell us the make, the model, and the part number if you have it. We'll confirm stock, quote a fair price, and have it on a lorry before you've finished your chai."}
           </p>
 
           {/* Quick action cards */}
@@ -38,12 +39,14 @@ export function ContactCTA() {
               href={SITE.phoneHref}
               className="group relative flex flex-col bg-[var(--ink)] text-[var(--bone)] p-5 rounded-sm overflow-hidden"
             >
-              <span className="eyebrow text-[var(--amber)]">Call the counter</span>
+              <span className="eyebrow text-[var(--amber)]">
+                {isHindi ? "काउंटर पर कॉल करें" : "Call the counter"}
+              </span>
               <span className="mt-2 font-display text-2xl tracking-tight">
                 {SITE.phone}
               </span>
               <span className="mt-2 flex items-center gap-2 text-xs text-[var(--bone)]/70">
-                <Phone className="h-3.5 w-3.5" /> Tap to dial
+                <Phone className="h-3.5 w-3.5" /> {isHindi ? "कॉल करने के लिए tap करें" : "Tap to dial"}
               </span>
               <span className="absolute top-3 right-3 flex items-center justify-center w-9 h-9 rounded-full bg-[var(--amber)] text-[var(--ink)] transition-transform duration-500 group-hover:-translate-y-1 group-hover:-rotate-12">
                 <ArrowUpRight className="h-4 w-4" />
@@ -61,13 +64,13 @@ export function ContactCTA() {
                 className="font-mono uppercase"
                 style={{ fontSize: "0.72rem", letterSpacing: "0.24em", color: "rgba(255,255,255,0.9)" }}
               >
-                Chat on WhatsApp
+                {isHindi ? "WhatsApp पर बात करें" : "Chat on WhatsApp"}
               </span>
               <span className="mt-2 font-display text-2xl tracking-tight text-white">
-                Message us now
+                {isHindi ? "अभी message करें" : "Message us now"}
               </span>
               <span className="mt-2 flex items-center gap-2 text-xs" style={{ color: "rgba(255,255,255,0.85)" }}>
-                Pre-filled messages waiting
+                {isHindi ? "Message पहले से तैयार" : "Pre-filled messages waiting"}
               </span>
               <span className="absolute top-3 right-3 flex items-center justify-center w-9 h-9 rounded-full bg-white text-[#128c7e] transition-transform duration-500 group-hover:-translate-y-1 group-hover:-rotate-12">
                 <ArrowUpRight className="h-4 w-4" />
@@ -78,7 +81,7 @@ export function ContactCTA() {
               className="flex flex-col gap-1 bg-[var(--ink)]/10 hover:bg-[var(--ink)] hover:text-[var(--bone)] transition-colors p-4 rounded-sm"
             >
               <span className="eyebrow text-[var(--ink)]/60">
-                <Mail className="h-3.5 w-3.5 inline -translate-y-0.5 mr-1.5" /> Email
+                <Mail className="h-3.5 w-3.5 inline -translate-y-0.5 mr-1.5" /> {isHindi ? "ईमेल" : "Email"}
               </span>
               <span className="font-mono text-xs md:text-sm break-all">
                 {SITE.email}
@@ -89,7 +92,7 @@ export function ContactCTA() {
               className="flex flex-col gap-1 bg-[var(--ink)]/10 hover:bg-[var(--ink)] hover:text-[var(--bone)] transition-colors p-4 rounded-sm"
             >
               <span className="eyebrow text-[var(--ink)]/60">
-                <MapPin className="h-3.5 w-3.5 inline -translate-y-0.5 mr-1.5" /> Visit
+                <MapPin className="h-3.5 w-3.5 inline -translate-y-0.5 mr-1.5" /> {isHindi ? "दुकान" : "Visit"}
               </span>
               <span className="text-xs md:text-sm leading-tight">
                 Kaneri Rd, Mohansarai, Varanasi
