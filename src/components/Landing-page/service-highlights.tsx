@@ -2,11 +2,14 @@
 
 import { ShieldCheck, Boxes, Truck, Wrench } from "lucide-react";
 import type { ReactNode } from "react";
+import { useLang } from "@/components/providers/language-provider";
 
 type Item = {
   n: string;
   title: string;
+  titleHi: string;
   body: string;
+  bodyHi: string;
   icon: ReactNode;
 };
 
@@ -14,47 +17,61 @@ const ITEMS: Item[] = [
   {
     n: "01",
     title: "Genuine & OE-grade",
+    titleHi: "असली और OE-grade",
     body: "Every part we stock is traceable. No greys, no counterfeits — only parts we'd install in our own trucks.",
+    bodyHi: "हमारा हर पार्ट traceable है। नकली या grey stock नहीं — वही माल जो हम अपनी गाड़ी में लगाएँ।",
     icon: <ShieldCheck className="h-5 w-5" />,
   },
   {
     n: "02",
-    title: "Breadth of inventory",
+    title: "Breadth of parts",
+    titleHi: "बड़ा पार्ट्स स्टॉक",
     body: "From braking shoes to drivetrain, filtration to engine oils — one workshop, indexed shelves, walk-in ready.",
+    bodyHi: "ब्रेक शू से drivetrain, filters से engine oils तक — indexed shelves, walk-in ready.",
     icon: <Boxes className="h-5 w-5" />,
   },
   {
     n: "03",
     title: "Fast fulfilment",
+    titleHi: "तेज़ डिलीवरी",
     body: "Most orders despatched same day. Transport across UP and onward by the carriers you already trust.",
+    bodyHi: "अधिकतर ऑर्डर उसी दिन निकलते हैं। UP और आगे आपके भरोसेमंद carriers से भेजते हैं।",
     icon: <Truck className="h-5 w-5" />,
   },
   {
     n: "04",
     title: "Mechanic-led counsel",
+    titleHi: "मिस्त्री वाली सलाह",
     body: "Twenty years on the floor means we know what fits what. Tell us the model — we'll recommend the part.",
+    bodyHi: "बीस साल के अनुभव से हमें पता है क्या कहाँ फिट होगा। मॉडल बताइए — हम सही पार्ट बताएँगे।",
     icon: <Wrench className="h-5 w-5" />,
   },
 ];
 
 export function ServiceHighlights() {
+  const { lang } = useLang();
+  const isHindi = lang === "hi";
+
   return (
     <div className="relative">
       {/* header row */}
       <div className="grid grid-cols-12 gap-6 md:gap-10 mb-12 md:mb-16">
         <div className="col-span-12 md:col-span-5">
-          <p className="eyebrow text-[var(--amber-deep)] mb-4">§ 04 · Workshop</p>
+          <p className="eyebrow text-[var(--amber-deep)] mb-4">
+            {isHindi ? "§ ०४ · भरोसा" : "§ 04 · Workshop"}
+          </p>
           <h2 className="font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em] text-[var(--foreground)]">
-            Why fleets keep
+            {isHindi ? "फ्लीट बार-बार" : "Why fleets keep"}
             <br />
-            coming <span className="italic amber-mark">back.</span>
+            {isHindi ? "यहीं " : "coming "}
+            <span className="italic amber-mark">{isHindi ? "आते हैं।" : "back."}</span>
           </h2>
         </div>
         <div className="col-span-12 md:col-span-6 md:col-start-7 pt-2">
           <p className="text-base leading-relaxed text-[var(--foreground)]/80 md:text-lg">
-            We aren&apos;t a catalogue with a phone number. We&apos;re a counter,
-            a bay, and a thousand relationships tied together by two decades
-            of service. Here&apos;s what that buys you.
+            {isHindi
+              ? "हम सिर्फ फोन नंबर वाला catalogue नहीं हैं। हम काउंटर, workshop और दो दशक के रिश्तों से बनी सेवा हैं।"
+              : "We aren't a catalogue with a phone number. We're a counter, a bay, and a thousand relationships tied together by two decades of service. Here's what that buys you."}
           </p>
         </div>
       </div>
@@ -77,12 +94,12 @@ export function ServiceHighlights() {
 
             <div>
               <h3 className="font-display text-2xl leading-tight tracking-tight text-[var(--foreground)] group-hover:text-[var(--ink)] md:text-3xl">
-                {item.title}
+                {isHindi ? item.titleHi : item.title}
               </h3>
             </div>
 
             <p className="mt-auto text-sm leading-relaxed text-[var(--foreground)]/75 group-hover:text-[var(--ink)]/80">
-              {item.body}
+              {isHindi ? item.bodyHi : item.body}
             </p>
 
             {/* amber underline reveal */}
@@ -93,8 +110,10 @@ export function ServiceHighlights() {
 
       {/* footer meta */}
       <div className="mt-8 flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--muted-foreground)]">
-        <span>Open Mon–Sat · 9am – 7pm</span>
-        <span className="text-[var(--amber-deep)]">◆ &nbsp;Counter open · Workshop live</span>
+        <span>{isHindi ? "खुला सोम–शनि · 9am – 7pm" : "Open Mon–Sat · 9am – 7pm"}</span>
+        <span className="text-[var(--amber-deep)]">
+          ◆ &nbsp;{isHindi ? "काउंटर खुला · workshop live" : "Counter open · Workshop live"}
+        </span>
         <span>Kaneri Road, Mohansarai</span>
       </div>
     </div>

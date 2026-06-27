@@ -3,10 +3,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, Check } from "lucide-react";
+import { useLang } from "@/components/providers/language-provider";
 
 type State = "idle" | "sending" | "sent" | "error";
 
 export function EnquiryForm() {
+  const { lang } = useLang();
+  const isHindi = lang === "hi";
   const [state, setState] = useState<State>("idle");
   const [error, setError] = useState<string>("");
   const [form, setForm] = useState({
@@ -29,7 +32,7 @@ export function EnquiryForm() {
       const data = await res.json();
       if (!res.ok || !data.ok) {
         setState("error");
-        setError(data.error || "Something went wrong.");
+        setError(data.error || (isHindi ? "कुछ गलत हो गया।" : "Something went wrong."));
         return;
       }
       setState("sent");
@@ -38,16 +41,22 @@ export function EnquiryForm() {
       }
     } catch {
       setState("error");
-      setError("Couldn't reach the server. Please call the counter instead.");
+      setError(
+        isHindi
+          ? "Server तक नहीं पहुँच पाए। कृपया काउंटर पर कॉल करें।"
+          : "Couldn't reach the server. Please call the counter instead."
+      );
     }
   }
 
   return (
     <div className="relative p-6 md:p-8 bg-[var(--ink)]/10 rounded-sm">
       <div className="mb-5">
-        <p className="eyebrow text-[var(--ink)]/70">Leave a message</p>
+        <p className="eyebrow text-[var(--ink)]/70">
+          {isHindi ? "मैसेज छोड़ें" : "Leave a message"}
+        </p>
         <h3 className="font-display text-2xl md:text-3xl leading-tight mt-1">
-          We&apos;ll read it and reply.
+          {isHindi ? "हम पढ़कर जवाब देंगे।" : "We'll read it and reply."}
         </h3>
       </div>
 
@@ -61,44 +70,48 @@ export function EnquiryForm() {
             <Check className="w-5 h-5" />
           </span>
           <div>
-            <div className="font-display text-lg">Got it — thank you.</div>
+            <div className="font-display text-lg">
+              {isHindi ? "मिल गया — धन्यवाद।" : "Got it — thank you."}
+            </div>
             <div className="text-xs text-[var(--bone)]/70">
-              A copy is opening in WhatsApp too. We&apos;ll reply shortly.
+              {isHindi
+                ? "WhatsApp में copy भी खुल रही है। हम जल्द जवाब देंगे।"
+                : "A copy is opening in WhatsApp too. We'll reply shortly."}
             </div>
           </div>
         </motion.div>
       ) : (
         <form onSubmit={submit} className="grid grid-cols-2 gap-3 md:gap-4">
           <FormInput
-            label="Name"
+            label={isHindi ? "नाम" : "Name"}
             value={form.name}
             required
             onChange={(v) => setForm({ ...form, name: v })}
           />
           <FormInput
-            label="Phone"
+            label={isHindi ? "फ़ोन" : "Phone"}
             value={form.phone}
             required
             type="tel"
             onChange={(v) => setForm({ ...form, phone: v })}
           />
           <FormInput
-            label="Vehicle (optional)"
+            label={isHindi ? "गाड़ी (optional)" : "Vehicle (optional)"}
             value={form.vehicle}
             className="col-span-2"
-            placeholder="e.g. Tata LPT 1615, 2018"
+            placeholder={isHindi ? "जैसे Tata LPT 1615, 2018" : "e.g. Tata LPT 1615, 2018"}
             onChange={(v) => setForm({ ...form, vehicle: v })}
           />
           <label className="flex flex-col gap-1.5 col-span-2">
             <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--ink)]/70">
-              Message <span className="text-[var(--amber-deep)]">*</span>
+              {isHindi ? "मैसेज" : "Message"} <span className="text-[var(--amber-deep)]">*</span>
             </span>
             <textarea
               required
               rows={4}
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
-              placeholder="What are you looking for?"
+              placeholder={isHindi ? "आप क्या ढूँढ रहे हैं?" : "What are you looking for?"}
               className="w-full bg-[var(--bone)] border border-[var(--border)] focus:border-[var(--amber-deep)] focus:outline-none rounded-sm px-3 py-2.5 text-sm placeholder:text-[var(--ink)]/40 resize-none"
             />
           </label>
@@ -109,7 +122,9 @@ export function EnquiryForm() {
 
           <div className="col-span-2 flex items-center justify-between gap-4 mt-2">
             <p className="text-[10px] font-mono uppercase tracking-[0.28em] text-[var(--ink)]/60">
-              By sending, you agree to be contacted by WhatsApp or phone.
+              {isHindi
+                ? "भेजकर आप WhatsApp या phone पर संपर्क के लिए सहमत हैं।"
+                : "By sending, you agree to be contacted by WhatsApp or phone."}
             </p>
             <button
               type="submit"
@@ -118,7 +133,13 @@ export function EnquiryForm() {
             >
               <Send className="w-4 h-4 shrink-0" />
               <span className="whitespace-nowrap">
-                {state === "sending" ? "Sending…" : "Send enquiry"}
+                {state === "sending"
+                  ? isHindi
+                    ? "भेज रहे हैं…"
+                    : "Sending…"
+                  : isHindi
+                    ? "Enquiry भेजें"
+                    : "Send enquiry"}
               </span>
             </button>
           </div>

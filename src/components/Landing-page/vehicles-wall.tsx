@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useLang } from "@/components/providers/language-provider";
 
 type Maker = { name: string; domain: string };
 
@@ -86,22 +87,29 @@ const MAKERS: Maker[] = [
 ];
 
 export function VehiclesWall() {
+  const { lang } = useLang();
+  const isHindi = lang === "hi";
+
   return (
     <div className="relative">
       <div className="grid grid-cols-12 gap-6 md:gap-10 mb-10 md:mb-14">
         <div className="col-span-12 md:col-span-6">
-          <p className="eyebrow text-[var(--amber-deep)] mb-4">§ 09 · Vehicles we serve</p>
+          <p className="eyebrow text-[var(--amber-deep)] mb-4">
+            {isHindi ? "§ ०९ · जिन गाड़ियों के पार्ट्स" : "§ 09 · Vehicles we serve"}
+          </p>
           <h2 className="font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em] text-[var(--ink)]">
-            If it <span className="italic">runs</span> in India,
+            {isHindi ? "भारत में " : "If it "}
+            <span className="italic">{isHindi ? "चलती" : "runs"}</span>
+            {isHindi ? " है," : " in India,"}
             <br />
-            we stock for it.
+            {isHindi ? "हम उसके पार्ट्स रखते हैं।" : "we stock for it."}
           </h2>
         </div>
         <div className="col-span-12 md:col-span-5 md:col-start-8 pt-2">
           <p className="text-base md:text-lg text-[var(--ink)]/80 leading-relaxed">
-            Every major Indian and global manufacturer whose vehicles work the
-            roads of eastern UP — we carry, cross-reference and fit the parts
-            for.
+            {isHindi
+              ? "Eastern UP की सड़कों पर चलने वाली major Indian और global गाड़ियों के लिए हम parts carry और cross-reference करते हैं।"
+              : "Every major Indian and global manufacturer whose vehicles work the roads of eastern UP — we carry, cross-reference and fit the parts for."}
           </p>
         </div>
       </div>
@@ -132,8 +140,10 @@ export function VehiclesWall() {
       </div>
 
       <p className="mt-4 flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--ink)]/55">
-        <span>Don&apos;t see your make?</span>
-        <span className="text-[var(--amber-deep)]">◆ &nbsp;Ring the counter — if it runs, we can source it.</span>
+        <span>{isHindi ? "आपकी गाड़ी नहीं दिख रही?" : "Don't see your make?"}</span>
+        <span className="text-[var(--amber-deep)]">
+          ◆ &nbsp;{isHindi ? "काउंटर पर कॉल करें — अगर चलती है, हम source कर सकते हैं।" : "Ring the counter — if it runs, we can source it."}
+        </span>
       </p>
     </div>
   );

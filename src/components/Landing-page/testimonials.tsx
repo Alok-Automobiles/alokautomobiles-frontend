@@ -3,48 +3,63 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { useLang } from "@/components/providers/language-provider";
 
 type Quote = {
   body: string;
+  bodyHi: string;
   name: string;
   role: string;
+  roleHi: string;
   place: string;
 };
 
 const QUOTES: Quote[] = [
   {
     body: "Twelve of my LPT 1615s run on parts from Alok-ji's counter. Whatever I ring for, lands same day. They don't try to push what I haven't asked for.",
+    bodyHi: "मेरे बारह LPT 1615 Alok-ji के counter के parts पर चलते हैं। जो मांगो, same day मिल जाता है। बेकार चीज़ push नहीं करते।",
     name: "Ramesh Yadav",
     role: "Fleet owner",
+    roleHi: "फ्लीट मालिक",
     place: "Ramesh Road Transport · Chandauli",
   },
   {
     body: "Bulk Castrol CRB Turbo order, no fuss. Price was fair, invoice clean, lorry loaded before lunch. This is how the old trade should work.",
+    bodyHi: "Bulk Castrol CRB Turbo order बिना झंझट हुआ। Rate fair, invoice साफ, और lunch से पहले माल load। पुराना trade ऐसे ही होना चाहिए।",
     name: "Shakeel Ahmad",
     role: "Workshop proprietor",
+    roleHi: "वर्कशॉप मालिक",
     place: "Shakeel Diesel Works · Mirzapur",
   },
   {
     body: "I walked in with a photograph of a broken bearing. Alok-ji turned around, pulled it from the shelf, matched my Eicher exactly. Twenty minutes, done.",
+    bodyHi: "मैं टूटे bearing की photo लेकर गया। Alok-ji ने shelf से निकालकर मेरे Eicher से match कर दिया। बीस मिनट में काम।",
     name: "Vinod Kumar",
     role: "Independent mechanic",
+    roleHi: "मिस्त्री",
     place: "Ghazipur",
   },
   {
     body: "My Scorpio's clutch kit was overdue. Four other shops said two days. These people handed it to me in an hour. I tell every driver on this route.",
+    bodyHi: "मेरी Scorpio का clutch kit चाहिए था। चार दुकानों ने दो दिन कहा। यहाँ एक घंटे में मिल गया। इस route पर सबको बताता हूँ।",
     name: "Arjun Singh",
     role: "Owner-driver",
+    roleHi: "Owner-driver",
     place: "Jaunpur",
   },
   {
     body: "Reliable counter. Genuine brands. No duplicate stock. For our small fleet that is the whole game.",
+    bodyHi: "भरोसेमंद counter। Genuine brands। Duplicate stock नहीं। हमारी छोटी fleet के लिए यही सबसे ज़रूरी है।",
     name: "Meena Devi",
     role: "Co-owner",
+    roleHi: "Co-owner",
     place: "MD Logistics · Bhadohi",
   },
 ];
 
 export function Testimonials() {
+  const { lang } = useLang();
+  const isHindi = lang === "hi";
   const [index, setIndex] = useState(0);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -71,17 +86,20 @@ export function Testimonials() {
     <div className="relative">
       <div className="grid grid-cols-12 gap-6 md:gap-10 mb-10 md:mb-14">
         <div className="col-span-12 md:col-span-5">
-          <p className="eyebrow text-[var(--amber-deep)] mb-4">§ 06 · Word of mouth</p>
+          <p className="eyebrow text-[var(--amber-deep)] mb-4">
+            {isHindi ? "§ ०६ · ग्राहकों की बात" : "§ 06 · Word of mouth"}
+          </p>
           <h2 className="font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em]">
-            What the
+            {isHindi ? "काउंटर की" : "What the"}
             <br />
-            <span className="italic">counter sees.</span>
+            <span className="italic">{isHindi ? "असली बातें।" : "counter sees."}</span>
           </h2>
         </div>
         <div className="col-span-12 md:col-span-6 md:col-start-7 pt-2">
           <p className="text-base md:text-lg text-[var(--ink)]/80 leading-relaxed">
-            Fleet operators, workshop owners, owner-drivers. Real customers
-            from across eastern Uttar Pradesh, in their own words.
+            {isHindi
+              ? "Fleet operators, workshop owners और owner-drivers — eastern Uttar Pradesh के असली customers की बातें।"
+              : "Fleet operators, workshop owners, owner-drivers. Real customers from across eastern Uttar Pradesh, in their own words."}
           </p>
         </div>
       </div>
@@ -110,7 +128,7 @@ export function Testimonials() {
                 &ldquo;
               </span>
               <p className="relative font-display text-2xl md:text-3xl lg:text-4xl leading-snug tracking-[-0.01em]">
-                {q.body}
+                {isHindi ? q.bodyHi : q.body}
               </p>
               <div className="mt-6 flex flex-col md:flex-row md:items-center gap-2 md:gap-6 text-sm">
                 <div className="flex gap-0.5 text-[var(--amber)]">
@@ -120,7 +138,7 @@ export function Testimonials() {
                 </div>
                 <div className="font-mono text-xs uppercase tracking-[0.22em] text-[var(--ink)]/80">
                   <span className="font-medium text-[var(--ink)] not-italic">{q.name}</span>
-                  <span className="text-[var(--ink)]/55"> &nbsp;·&nbsp; {q.role}</span>
+                  <span className="text-[var(--ink)]/55"> &nbsp;·&nbsp; {isHindi ? q.roleHi : q.role}</span>
                   <span className="text-[var(--ink)]/55"> &nbsp;·&nbsp; {q.place}</span>
                 </div>
               </div>

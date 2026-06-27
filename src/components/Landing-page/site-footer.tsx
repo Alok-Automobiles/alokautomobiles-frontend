@@ -1,9 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Phone, Mail, MapPin, Star } from "lucide-react";
+import { useLang } from "@/components/providers/language-provider";
 import { SITE } from "@/lib/site";
 
 export function SiteFooter() {
+  const { lang } = useLang();
+  const isHindi = lang === "hi";
+
   return (
     <footer className="relative bg-[var(--ink)] text-[var(--bone)] overflow-hidden">
       <div className="pointer-events-none absolute inset-0 grain opacity-60" />
@@ -33,7 +39,9 @@ export function SiteFooter() {
       {/* Districts served band */}
       <div className="relative border-b border-[var(--bone)]/10">
         <div className="site-container py-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
-          <span className="eyebrow text-[var(--bone)]/60">Districts we serve</span>
+          <span className="eyebrow text-[var(--bone)]/60">
+            {isHindi ? "जहाँ हम सेवा देते हैं" : "Districts we serve"}
+          </span>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-[var(--bone)]/80">
             {SITE.districts.map((d, i) => (
               <span key={d} className="flex items-center gap-4">
@@ -56,12 +64,16 @@ export function SiteFooter() {
             </div>
             <div>
               <div className="font-display text-xl">{SITE.name}</div>
-              <div className="eyebrow text-[var(--bone)]/60">Since {SITE.founded}</div>
+              <div className="eyebrow text-[var(--bone)]/60">
+                {isHindi ? `${SITE.founded} से` : `Since ${SITE.founded}`}
+              </div>
             </div>
           </div>
 
           <p className="mt-6 max-w-md text-sm md:text-base text-[var(--bone)]/70 leading-relaxed">
-            {SITE.description}
+            {isHindi
+              ? "वाराणसी की पुरानी spare parts दुकान। ट्रक, 4-wheeler, engine oil, braking, drivetrain, filtration और रोज़मर्रा के ज़रूरी parts — genuine stock और सीधे counter की सलाह।"
+              : SITE.description}
           </p>
 
           <Link
@@ -71,7 +83,7 @@ export function SiteFooter() {
             className="group mt-8 inline-flex items-center gap-3 h-12 pl-5 pr-2 rounded-full border border-[var(--bone)]/20 text-sm hover:bg-[var(--amber)] hover:text-[var(--ink)] hover:border-[var(--amber)] transition-colors"
           >
             <Star className="h-4 w-4 fill-[var(--amber)] text-[var(--amber)] group-hover:fill-[var(--ink)] group-hover:text-[var(--ink)]" />
-            <span>Leave us a review on Google</span>
+            <span>{isHindi ? "Google पर review दें" : "Leave us a review on Google"}</span>
             <span className="ml-2 flex items-center justify-center w-8 h-8 rounded-full bg-[var(--amber)] text-[var(--ink)] group-hover:bg-[var(--ink)] group-hover:text-[var(--bone)] transition-colors">
               →
             </span>
@@ -79,18 +91,18 @@ export function SiteFooter() {
         </div>
 
         <div className="col-span-6 md:col-span-2">
-          <p className="eyebrow text-[var(--bone)]/50 mb-4">Shop</p>
+          <p className="eyebrow text-[var(--bone)]/50 mb-4">{isHindi ? "दुकान" : "Shop"}</p>
           <ul className="space-y-3 text-sm">
-            <FLink href="#inventory">Inventory</FLink>
-            <FLink href="#brands">Partners</FLink>
-            <FLink href="#workshop">Workshop</FLink>
-            <FLink href="#contact">Contact</FLink>
-            <FLink href="#part-finder">Part finder</FLink>
+            <FLink href="/parts">{isHindi ? "पार्ट्स" : "Parts"}</FLink>
+            <FLink href="/#brands">{isHindi ? "ब्रांड्स" : "Partners"}</FLink>
+            <FLink href="/#workshop">{isHindi ? "दुकान" : "Workshop"}</FLink>
+            <FLink href="/#contact">{isHindi ? "संपर्क" : "Contact"}</FLink>
+            <FLink href="/#part-finder">{isHindi ? "Part finder" : "Part finder"}</FLink>
           </ul>
         </div>
 
         <div className="col-span-6 md:col-span-2">
-          <p className="eyebrow text-[var(--bone)]/50 mb-4">Reach</p>
+          <p className="eyebrow text-[var(--bone)]/50 mb-4">{isHindi ? "संपर्क" : "Reach"}</p>
           <ul className="space-y-3 text-sm">
             <li>
               <Link href={SITE.phoneHref} className="flex items-center gap-2 hover:text-[var(--amber)] transition-colors">
@@ -108,7 +120,7 @@ export function SiteFooter() {
         </div>
 
         <div className="col-span-12 md:col-span-3">
-          <p className="eyebrow text-[var(--bone)]/50 mb-4">Visit</p>
+          <p className="eyebrow text-[var(--bone)]/50 mb-4">{isHindi ? "पता" : "Visit"}</p>
           <address className="not-italic text-sm text-[var(--bone)]/80 leading-relaxed flex gap-3">
             <MapPin className="h-4 w-4 mt-1 text-[var(--amber)] shrink-0" />
             <span>
@@ -119,16 +131,16 @@ export function SiteFooter() {
               {SITE.address.region} — {SITE.address.postalCode}
             </span>
           </address>
-          <p className="mt-4 eyebrow text-[var(--bone)]/50">Hours</p>
+          <p className="mt-4 eyebrow text-[var(--bone)]/50">{isHindi ? "समय" : "Hours"}</p>
           <p className="mt-2 font-mono text-xs text-[var(--bone)]/75">{SITE.hours}</p>
         </div>
       </div>
 
       <div className="relative border-t border-[var(--bone)]/10">
         <div className="site-container py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--bone)]/50">
-          <span>© {new Date().getFullYear()} {SITE.name} · All rights reserved</span>
-          <span className="text-[var(--amber)]">◆ &nbsp;Made in Varanasi</span>
-          <span>Trademarks belong to their respective owners</span>
+          <span>© {new Date().getFullYear()} {SITE.name} · {isHindi ? "सर्वाधिकार सुरक्षित" : "All rights reserved"}</span>
+          <span className="text-[var(--amber)]">◆ &nbsp;{isHindi ? "वाराणसी में बनाया गया" : "Made in Varanasi"}</span>
+          <span>{isHindi ? "Trademarks उनके owners के हैं" : "Trademarks belong to their respective owners"}</span>
         </div>
       </div>
     </footer>

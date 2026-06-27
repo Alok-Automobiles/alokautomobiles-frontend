@@ -3,39 +3,54 @@
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { MessageSquare, CheckCircle2, Receipt, Truck } from "lucide-react";
+import { useLang } from "@/components/providers/language-provider";
 
 const STEPS = [
   {
     n: "01",
-    title: "Enquire",
-    body: "WhatsApp, ring the counter, or use the part-finder. Tell us the vehicle and the part — a photo helps.",
-    icon: <MessageSquare className="h-5 w-5" />,
-    time: "Under 5 min",
+  title: "Enquire",
+    titleHi: "पूछताछ",
+  body: "WhatsApp, ring the counter, or use the part-finder. Tell us the vehicle and the part — a photo helps.",
+    bodyHi: "WhatsApp करें, कॉल करें या part-finder भरें। गाड़ी और पार्ट बताइए — फोटो मदद करती है।",
+  icon: <MessageSquare className="h-5 w-5" />,
+  time: "Under 5 min",
+    timeHi: "5 मिनट से कम",
   },
   {
     n: "02",
     title: "We confirm stock",
+    titleHi: "हम स्टॉक confirm करते हैं",
     body: "We check the shelf, confirm brand and price. If something's better for your vehicle, we'll tell you.",
+    bodyHi: "हम shelf check करते हैं, brand और price बताते हैं। आपकी गाड़ी के लिए बेहतर विकल्प होगा तो वह भी बताएँगे।",
     icon: <CheckCircle2 className="h-5 w-5" />,
     time: "Same hour",
+    timeHi: "उसी घंटे",
   },
   {
     n: "03",
     title: "Invoice",
+    titleHi: "बिल",
     body: "Clean, itemised invoice. Pay on delivery, by UPI, bank transfer or cash at the counter.",
+    bodyHi: "साफ itemised invoice। Delivery पर, UPI, bank transfer या cash से भुगतान करें।",
     icon: <Receipt className="h-5 w-5" />,
     time: "Your choice",
+    timeHi: "आपकी सुविधा",
   },
   {
     n: "04",
     title: "Despatch",
+    titleHi: "डिस्पैच",
     body: "Most orders leave on a lorry the same day. Across UP and onward by the carriers you already trust.",
+    bodyHi: "अधिकतर ऑर्डर उसी दिन निकलते हैं। UP और आगे भरोसेमंद carriers से भेजते हैं।",
     icon: <Truck className="h-5 w-5" />,
     time: "Same-day · Before 4pm",
+    timeHi: "उसी दिन · 4pm से पहले",
   },
 ];
 
 export function ProcessTimeline() {
+  const { lang } = useLang();
+  const isHindi = lang === "hi";
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -48,17 +63,20 @@ export function ProcessTimeline() {
     <div ref={ref} className="relative">
       <div className="grid grid-cols-12 gap-6 md:gap-10 mb-10 md:mb-14">
         <div className="col-span-12 md:col-span-6">
-          <p className="eyebrow text-[var(--amber-deep)] mb-4">§ 08 · How we work</p>
+          <p className="eyebrow text-[var(--amber-deep)] mb-4">
+            {isHindi ? "§ ०८ · काम कैसे होता है" : "§ 08 · How we work"}
+          </p>
           <h2 className="font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em] text-[var(--ink)]">
-            From enquiry to
+            {isHindi ? "पूछताछ से" : "From enquiry to"}
             <br />
-            <span className="italic">on-the-lorry.</span>
+            <span className="italic">{isHindi ? "डिस्पैच तक।" : "on-the-lorry."}</span>
           </h2>
         </div>
         <div className="col-span-12 md:col-span-5 md:col-start-8 pt-2">
           <p className="text-base md:text-lg text-[var(--ink)]/80 leading-relaxed">
-            Four steps. No forms with ten fields. No three-day quotations.
-            It&apos;s what twenty years on the counter teaches you.
+            {isHindi
+              ? "चार आसान कदम। दस-field वाले forms नहीं। तीन दिन का इंतज़ार नहीं। यही काउंटर का बीस साल का अनुभव है।"
+              : "Four steps. No forms with ten fields. No three-day quotations. It's what twenty years on the counter teaches you."}
           </p>
         </div>
       </div>
@@ -93,13 +111,13 @@ export function ProcessTimeline() {
               </span>
               {/* index */}
               <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--amber-deep)] md:block">
-                / {s.n} · {s.time}
+                / {s.n} · {isHindi ? s.timeHi : s.time}
               </span>
               <h3 className="font-display mt-2 text-2xl tracking-tight text-[var(--ink)] md:text-3xl">
-                {s.title}
+                {isHindi ? s.titleHi : s.title}
               </h3>
               <p className="mt-3 text-sm text-[var(--ink)]/75 leading-relaxed max-w-xs">
-                {s.body}
+                {isHindi ? s.bodyHi : s.body}
               </p>
             </motion.li>
           ))}

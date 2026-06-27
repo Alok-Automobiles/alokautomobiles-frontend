@@ -3,28 +3,35 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
+import { useLang } from "@/components/providers/language-provider";
 import { SITE, whatsappURL } from "@/lib/site";
 
-const QUICK: { label: string; msg: string }[] = [
+const QUICK: { label: string; labelHi: string; msg: string }[] = [
   {
     label: "General enquiry",
+    labelHi: "सामान्य पूछताछ",
     msg: "Hi Alok Automobiles — I'd like to enquire about spare parts.",
   },
   {
     label: "Truck parts",
+    labelHi: "ट्रक पार्ट्स",
     msg: "Hi Alok Automobiles — I need truck parts. Vehicle: __, Model: __, Part: __.",
   },
   {
     label: "Engine oil",
+    labelHi: "इंजन ऑयल",
     msg: "Hi Alok Automobiles — I'd like to order engine oil. Brand/Grade: __, Quantity: __.",
   },
   {
     label: "Bulk / fleet",
+    labelHi: "Bulk / fleet",
     msg: "Hi Alok Automobiles — I'm enquiring on behalf of a fleet. Please share wholesale pricing.",
   },
 ];
 
 export function WhatsAppButton() {
+  const { lang } = useLang();
+  const isHindi = lang === "hi";
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const reduce = useReducedMotion();
@@ -52,7 +59,7 @@ export function WhatsAppButton() {
               <div className="flex-1 leading-tight">
                 <div className="font-display text-sm">Alok Automobiles</div>
                 <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-[var(--bone)]/60">
-                  Typically replies in minutes
+                  {isHindi ? "आमतौर पर कुछ मिनटों में जवाब" : "Typically replies in minutes"}
                 </div>
               </div>
               <button
@@ -65,7 +72,9 @@ export function WhatsAppButton() {
             </div>
             <div className="p-4">
               <p className="text-sm text-[var(--bone)]/80 mb-3 leading-relaxed">
-                Hi — pick a quick message and we&apos;ll take it from there.
+                {isHindi
+                  ? "नमस्ते — एक quick message चुनें, आगे हम संभाल लेंगे।"
+                  : "Hi — pick a quick message and we'll take it from there."}
               </p>
               <div className="flex flex-col gap-2">
                 {QUICK.map((q) => (
@@ -77,9 +86,9 @@ export function WhatsAppButton() {
                     className="flex items-center justify-between gap-3 rounded-md bg-[var(--steel)]/60 hover:bg-[var(--amber)] hover:text-[var(--ink)] px-3 py-2.5 text-sm transition-colors"
                     onClick={() => setOpen(false)}
                   >
-                    <span>{q.label}</span>
+                    <span>{isHindi ? q.labelHi : q.label}</span>
                     <span className="text-[10px] font-mono uppercase tracking-[0.22em] opacity-70">
-                      SEND ↗
+                      {isHindi ? "भेजें ↗" : "SEND ↗"}
                     </span>
                   </a>
                 ))}
@@ -131,10 +140,10 @@ export function WhatsAppButton() {
         {/* tooltip */}
         {!open && (
           <span className="pointer-events-none absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap bg-[var(--ink)] text-[var(--bone)] text-xs font-mono uppercase tracking-[0.22em] px-3 py-1.5 rounded-full opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
-            Chat with us
+            {isHindi ? "बात करें" : "Chat with us"}
           </span>
         )}
-        <span className="sr-only">Chat on WhatsApp</span>
+        <span className="sr-only">{isHindi ? "WhatsApp पर बात करें" : "Chat on WhatsApp"}</span>
       </motion.button>
     </div>
   );

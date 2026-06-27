@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useLang } from "@/components/providers/language-provider";
 
 export function LoadingScreen() {
+  const { lang } = useLang();
+  const isHindi = lang === "hi";
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(true);
   const [fading, setFading] = useState(false);
@@ -29,11 +32,34 @@ export function LoadingScreen() {
   }, []);
 
   const stage = useMemo(() => {
-    if (progress < 25) return "CALIBRATING";
-    if (progress < 55) return "INDEXING INVENTORY";
-    if (progress < 85) return "LOADING WORKSHOP";
-    return "READY";
-  }, [progress]);
+    if (progress < 25) return isHindi ? "तैयारी" : "CALIBRATING";
+    if (progress < 55) return isHindi ? "पार्ट्स INDEX हो रहे हैं" : "INDEXING PARTS";
+    if (progress < 85) return isHindi ? "दुकान लोड हो रही है" : "LOADING WORKSHOP";
+    return isHindi ? "तैयार" : "READY";
+  }, [isHindi, progress]);
+  const tickerWords = isHindi
+    ? [
+        "ट्रक पार्ट्स",
+        "इंजन ऑयल",
+        "ड्राइवट्रेन",
+        "फिल्टर",
+        "ब्रेकिंग",
+        "सस्पेंशन",
+        "लुब्रिकेंट",
+        "कार पार्ट्स",
+        "असली स्टॉक",
+      ]
+    : [
+        "TRUCK PARTS",
+        "ENGINE OIL",
+        "DRIVETRAIN",
+        "FILTRATION",
+        "BRAKING",
+        "SUSPENSION",
+        "LUBRICANTS",
+        "FOUR-WHEELERS",
+        "GENUINE STOCK",
+      ];
 
   if (!visible) return null;
 
@@ -82,9 +108,11 @@ export function LoadingScreen() {
         {/* headline */}
         <p className="eyebrow text-[var(--amber)] mb-3">{stage}</p>
         <h2 className="font-display text-4xl md:text-6xl font-light leading-none">
-          Keep the wheels
+          {isHindi ? "पहिए" : "Keep the wheels"}
           <br />
-          <span className="italic text-[var(--amber)]">turning.</span>
+          <span className="italic text-[var(--amber)]">
+            {isHindi ? "चलते रहें।" : "turning."}
+          </span>
         </h2>
 
         {/* odometer */}
@@ -118,17 +146,7 @@ export function LoadingScreen() {
         >
           {Array.from({ length: 2 }).map((_, i) => (
             <div key={i} className="flex items-center shrink-0 gap-6 pr-6">
-              {[
-                "TRUCK PARTS",
-                "ENGINE OIL",
-                "DRIVETRAIN",
-                "FILTRATION",
-                "BRAKING",
-                "SUSPENSION",
-                "LUBRICANTS",
-                "FOUR-WHEELERS",
-                "GENUINE STOCK",
-              ].map((w) => (
+              {tickerWords.map((w) => (
                 <span key={w} className="flex items-center gap-6">
                   <span>{w}</span>
                   <span aria-hidden className="text-[var(--amber)]">◆</span>

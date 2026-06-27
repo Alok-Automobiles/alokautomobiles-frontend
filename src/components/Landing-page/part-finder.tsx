@@ -3,9 +3,16 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Search } from "lucide-react";
+import { useLang } from "@/components/providers/language-provider";
 import { SITE, whatsappURL } from "@/lib/site";
 
-const VEHICLE_TYPES = ["Truck", "Bus", "4-Wheeler / Car", "SUV / 4×4", "Tractor"];
+const VEHICLE_TYPES = [
+  { value: "Truck", en: "Truck", hi: "ट्रक" },
+  { value: "Bus", en: "Bus", hi: "बस" },
+  { value: "4-Wheeler / Car", en: "4-Wheeler / Car", hi: "कार / 4-व्हीलर" },
+  { value: "SUV / 4×4", en: "SUV / 4×4", hi: "SUV / 4×4" },
+  { value: "Tractor", en: "Tractor", hi: "ट्रैक्टर" },
+];
 
 const MAKES: Record<string, string[]> = {
   Truck: ["TATA", "Ashok Leyland", "Eicher", "BharatBenz", "Mahindra", "Volvo", "Force"],
@@ -16,19 +23,21 @@ const MAKES: Record<string, string[]> = {
 };
 
 const CATEGORIES = [
-  "Engine oil / Lubricant",
-  "Filter (oil / air / fuel)",
-  "Brake shoes / pads / drums",
-  "Clutch kit",
-  "Suspension / leaf spring",
-  "Drivetrain / bearings",
-  "Electricals / starter",
-  "Radiator / cooling",
-  "Gasket / seal",
-  "Other",
+  { value: "Engine oil / Lubricant", en: "Engine oil / Lubricant", hi: "इंजन ऑयल / लुब्रिकेंट" },
+  { value: "Filter (oil / air / fuel)", en: "Filter (oil / air / fuel)", hi: "फिल्टर (ऑयल / एयर / फ्यूल)" },
+  { value: "Brake shoes / pads / drums", en: "Brake shoes / pads / drums", hi: "ब्रेक शू / पैड / ड्रम" },
+  { value: "Clutch kit", en: "Clutch kit", hi: "क्लच किट" },
+  { value: "Suspension / leaf spring", en: "Suspension / leaf spring", hi: "सस्पेंशन / लीफ स्प्रिंग" },
+  { value: "Drivetrain / bearings", en: "Drivetrain / bearings", hi: "ड्राइवट्रेन / बेयरिंग" },
+  { value: "Electricals / starter", en: "Electricals / starter", hi: "इलेक्ट्रिकल / स्टार्टर" },
+  { value: "Radiator / cooling", en: "Radiator / cooling", hi: "रेडिएटर / कूलिंग" },
+  { value: "Gasket / seal", en: "Gasket / seal", hi: "गैस्केट / सील" },
+  { value: "Other", en: "Other", hi: "अन्य" },
 ];
 
 export function PartFinder() {
+  const { lang } = useLang();
+  const isHindi = lang === "hi";
   const [type, setType] = useState<string>("");
   const [make, setMake] = useState<string>("");
   const [model, setModel] = useState<string>("");
@@ -61,15 +70,20 @@ export function PartFinder() {
         <div className="relative grid grid-cols-12 gap-0">
           {/* left headline */}
           <div className="col-span-12 md:col-span-4 p-8 md:p-10 border-b md:border-b-0 md:border-r border-[var(--steel)]">
-            <p className="eyebrow text-[var(--amber)] mb-3">§ 01 · Part-finder</p>
+            <p className="eyebrow text-[var(--amber)] mb-3">
+              {isHindi ? "§ ०१ · पार्ट खोजें" : "§ 01 · Part-finder"}
+            </p>
             <h3 className="font-display text-3xl md:text-4xl leading-[0.95] tracking-tight">
-              Tell us the vehicle.
+              {isHindi ? "गाड़ी बताइए।" : "Tell us the vehicle."}
               <br />
-              <span className="italic text-[var(--bone)]/80">We&apos;ll find the part.</span>
+              <span className="italic text-[var(--bone)]/80">
+                {isHindi ? "हम पार्ट ढूँढ देंगे।" : "We&apos;ll find the part."}
+              </span>
             </h3>
             <p className="mt-4 text-sm text-[var(--bone)]/70 leading-relaxed">
-              Fill in what you know — we&apos;ll take it from there on WhatsApp
-              or a call. No robots, no wait.
+              {isHindi
+                ? "जो जानकारी हो भर दें — आगे हम WhatsApp या कॉल पर संभाल लेंगे। कोई रोबोट नहीं, कोई इंतज़ार नहीं।"
+                : "Fill in what you know — we'll take it from there on WhatsApp or a call. No robots, no wait."}
             </p>
           </div>
 
@@ -82,47 +96,55 @@ export function PartFinder() {
               window.open(whatsappURL(message), "_blank", "noopener");
             }}
           >
-            <Field label="01 · Vehicle type" required>
+            <Field label={isHindi ? "01 · गाड़ी का प्रकार" : "01 · Vehicle type"} required>
               <Select value={type} onChange={(v) => { setType(v); setMake(""); }}>
-                <option value="">Select type…</option>
+                <option value="">{isHindi ? "प्रकार चुनें…" : "Select type…"}</option>
                 {VEHICLE_TYPES.map((v) => (
-                  <option key={v} value={v}>{v}</option>
+                  <option key={v.value} value={v.value}>{isHindi ? v.hi : v.en}</option>
                 ))}
               </Select>
             </Field>
 
-            <Field label="02 · Make" required>
+            <Field label={isHindi ? "02 · कंपनी" : "02 · Make"} required>
               <Select value={make} onChange={setMake} disabled={!type}>
-                <option value="">{type ? "Select make…" : "Pick type first"}</option>
+                <option value="">
+                  {type
+                    ? isHindi
+                      ? "कंपनी चुनें…"
+                      : "Select make…"
+                    : isHindi
+                      ? "पहले प्रकार चुनें"
+                      : "Pick type first"}
+                </option>
                 {makes.map((m) => (
                   <option key={m} value={m}>{m}</option>
                 ))}
-                <option value="Other">Other / Not listed</option>
+                <option value="Other">{isHindi ? "अन्य / लिस्ट में नहीं" : "Other / Not listed"}</option>
               </Select>
             </Field>
 
-            <Field label="03 · Model / Year">
+            <Field label={isHindi ? "03 · मॉडल / साल" : "03 · Model / Year"}>
               <Input
                 value={model}
                 onChange={setModel}
-                placeholder="e.g. LPT 1615, 2018"
+                placeholder={isHindi ? "जैसे LPT 1615, 2018" : "e.g. LPT 1615, 2018"}
               />
             </Field>
 
-            <Field label="04 · Part category" required>
+            <Field label={isHindi ? "04 · पार्ट कैटेगरी" : "04 · Part category"} required>
               <Select value={part} onChange={setPart}>
-                <option value="">Select category…</option>
+                <option value="">{isHindi ? "कैटेगरी चुनें…" : "Select category…"}</option>
                 {CATEGORIES.map((c) => (
-                  <option key={c} value={c}>{c}</option>
+                  <option key={c.value} value={c.value}>{isHindi ? c.hi : c.en}</option>
                 ))}
               </Select>
             </Field>
 
-            <Field label="05 · Anything else?" className="md:col-span-2">
+            <Field label={isHindi ? "05 · और कुछ?" : "05 · Anything else?"} className="md:col-span-2">
               <Input
                 value={extra}
                 onChange={setExtra}
-                placeholder="Part number, brand preference, quantity…"
+                placeholder={isHindi ? "पार्ट नंबर, ब्रांड, नोट…" : "Part number, brand preference, quantity…"}
               />
             </Field>
 
@@ -135,7 +157,15 @@ export function PartFinder() {
                 className="group inline-flex items-center justify-center gap-3 h-14 px-6 rounded-full bg-[var(--amber)] text-[var(--ink)] font-medium disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 <Search className="h-4 w-4" />
-                <span>{complete ? "Send on WhatsApp" : "Fill required fields"}</span>
+                <span>
+                  {complete
+                    ? isHindi
+                      ? "WhatsApp पर भेजें"
+                      : "Send on WhatsApp"
+                    : isHindi
+                      ? "ज़रूरी जानकारी भरें"
+                      : "Fill required fields"}
+                </span>
                 <span className="w-10 h-10 -mr-4 rounded-full bg-[var(--ink)] text-[var(--bone)] flex items-center justify-center group-hover:rotate-45 transition-transform">
                   <ArrowUpRight className="h-4 w-4" />
                 </span>
@@ -144,7 +174,7 @@ export function PartFinder() {
                 href={SITE.phoneHref}
                 className="inline-flex items-center justify-center gap-2 h-14 px-6 rounded-full border border-[var(--steel)] text-sm hover:bg-[var(--bone)] hover:text-[var(--ink)] transition-colors"
               >
-                Or ring the counter · <span className="font-mono">{SITE.phone}</span>
+                {isHindi ? "या काउंटर पर कॉल करें" : "Or ring the counter"} · <span className="font-mono">{SITE.phone}</span>
               </a>
             </div>
           </form>

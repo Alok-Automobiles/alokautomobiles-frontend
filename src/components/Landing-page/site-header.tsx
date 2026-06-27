@@ -8,10 +8,10 @@ import { useTheme } from "@/components/providers/theme-provider";
 import { useLang } from "@/components/providers/language-provider";
 
 const NAV = [
-  { href: "#inventory", labelKey: "nav.inventory" as const, index: "01" },
-  { href: "#brands", labelKey: "nav.partners" as const, index: "02" },
-  { href: "#workshop", labelKey: "nav.workshop" as const, index: "03" },
-  { href: "#contact", labelKey: "nav.contact" as const, index: "04" },
+  { href: "/parts", labelKey: "nav.inventory" as const, index: "01" },
+  { href: "/#brands", labelKey: "nav.partners" as const, index: "02" },
+  { href: "/#workshop", labelKey: "nav.workshop" as const, index: "03" },
+  { href: "/#contact", labelKey: "nav.contact" as const, index: "04" },
 ];
 
 export function SiteHeader() {
@@ -37,8 +37,10 @@ export function SiteHeader() {
               <span className="absolute inset-0 rounded-full bg-[var(--amber)] animate-pulse-amber" />
               <span className="relative rounded-full h-2 w-2 bg-[var(--amber)]" />
             </span>
-            <span className="hidden sm:inline">Open · Mon–Sat · 9am–7pm</span>
-            <span className="sm:hidden">Open now</span>
+            <span className="hidden sm:inline">
+              {lang === "hi" ? "खुला · सोम–शनि · सुबह 9–शाम 7" : "Open · Mon–Sat · 9am–7pm"}
+            </span>
+            <span className="sm:hidden">{lang === "hi" ? "अभी खुला" : "Open now"}</span>
           </div>
           <div className="hidden md:flex items-center justify-self-center gap-6 whitespace-nowrap">
             <span className="text-[var(--bone)]/70">Est. 2005</span>
@@ -85,7 +87,7 @@ export function SiteHeader() {
                 Alok <span className="italic opacity-80">Automobiles</span>
               </span>
               <span className="hidden sm:block text-[10px] font-mono uppercase tracking-[0.28em] text-[var(--muted-foreground)]">
-                Parts · Oils · Since 2005
+                {lang === "hi" ? "पार्ट्स · ऑयल · 2005 से" : "Parts · Oils · Since 2005"}
               </span>
             </div>
           </Link>
@@ -149,7 +151,7 @@ export function SiteHeader() {
             </button>
 
             <Link
-              href="#part-finder"
+              href="/#part-finder"
               className="group hidden md:inline-flex h-10 items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--card)]/70 px-4 text-xs font-medium tracking-tight text-[var(--foreground)] hover:border-[var(--amber)] hover:bg-[var(--amber)] hover:text-[var(--ink)] transition-colors"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-[var(--amber)] group-hover:bg-[var(--ink)] transition-colors" />
@@ -223,7 +225,7 @@ export function SiteHeader() {
             </div>
 
             <Link
-              href="#contact"
+              href="/#contact"
               onClick={() => setOpen(false)}
               className="mt-4 flex items-center justify-center gap-2 h-12 rounded-full bg-[var(--ink)] text-[var(--bone)] text-sm font-medium"
             >

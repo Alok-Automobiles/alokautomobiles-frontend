@@ -8,7 +8,11 @@ import { useLang } from "@/components/providers/language-provider";
 import { SITE } from "@/lib/site";
 
 export function Hero() {
-  const { t } = useLang();
+  const { lang, t } = useLang();
+  const isHindi = lang === "hi";
+  const tickerWords = isHindi
+    ? ["ट्रक पार्ट्स", "इंजन ऑयल", "ब्रेकिंग", "ड्राइवट्रेन", "फिल्टर", "लुब्रिकेंट", "कार पार्ट्स", "सस्पेंशन"]
+    : ["Truck parts", "Engine oils", "Braking", "Drivetrain", "Filtration", "Lubricants", "Four-wheelers", "Suspension"];
 
   return (
     <section
@@ -22,7 +26,7 @@ export function Hero() {
       {/* Top technical strip */}
       <div className="relative border-b border-[var(--border)]/80">
         <div className="site-container h-10 grid grid-cols-[minmax(0,1fr)_auto] md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-6 font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--muted-foreground)]">
-          <span className="min-w-0">Dossier · 01 / Landing</span>
+          <span className="min-w-0">{isHindi ? "डॉसियर · 01 / होम" : "Dossier · 01 / Landing"}</span>
           <div className="hidden md:flex items-center justify-self-center gap-6 whitespace-nowrap">
             <Meta label="LAT" value="25.28°N" />
             <Meta label="LON" value="82.99°E" />
@@ -94,7 +98,7 @@ export function Hero() {
               className="mt-10 flex flex-col sm:flex-row gap-4"
             >
               <Link
-                href="#inventory"
+                href="/parts"
                 className="group inline-flex items-center gap-3 h-14 pl-6 pr-2 rounded-full bg-[var(--foreground)] text-[var(--background)] font-medium tracking-tight hover:bg-[var(--amber)] hover:text-[var(--ink)] transition-colors"
               >
                 <span>{t("cta.explore")}</span>
@@ -122,7 +126,7 @@ export function Hero() {
               <Stat value="20+" label={t("stat.years")} />
               <Stat value="1,200+" label={t("stat.fleets")} />
               <Stat value="40+" label={t("stat.brands")} />
-              <Stat value="9" label="Districts served" />
+              <Stat value="9" label={t("stat.districts")} />
             </motion.div>
           </div>
 
@@ -148,16 +152,7 @@ export function Hero() {
           >
             {Array.from({ length: 2 }).map((_, i) => (
               <span key={i} className="flex shrink-0 items-center gap-10 pr-10">
-                {[
-                  "Truck parts",
-                  "Engine oils",
-                  "Braking",
-                  "Drivetrain",
-                  "Filtration",
-                  "Lubricants",
-                  "Four-wheelers",
-                  "Suspension",
-                ].map((w) => (
+                {tickerWords.map((w) => (
                   <span key={w} className="flex items-center gap-10">
                     <span>{w}</span>
                     <span aria-hidden className="text-[var(--amber)] not-italic">◆</span>
@@ -217,6 +212,9 @@ function AmberGlow() {
 }
 
 function TruckPanel() {
+  const { lang } = useLang();
+  const isHindi = lang === "hi";
+
   return (
     <div className="relative aspect-[4/5] md:aspect-[5/6] rounded-sm overflow-hidden bg-[var(--ink)] text-[var(--bone)]">
       <div
@@ -267,12 +265,12 @@ function TruckPanel() {
 
       <div className="absolute left-4 right-4 bottom-4 flex items-end justify-between font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--bone)]/70">
         <div>
-          <div>Spec · 01</div>
-          <div className="text-[var(--amber)] mt-1">Fleet-grade</div>
+          <div>{isHindi ? "स्पेक · 01" : "Spec · 01"}</div>
+          <div className="text-[var(--amber)] mt-1">{isHindi ? "फ्लीट-ग्रेड" : "Fleet-grade"}</div>
         </div>
         <div className="text-right">
-          <div>Inventory ready</div>
-          <div className="text-[var(--amber)] mt-1">Ships same day</div>
+          <div>{isHindi ? "पार्ट्स तैयार" : "Parts ready"}</div>
+          <div className="text-[var(--amber)] mt-1">{isHindi ? "उसी दिन भेजते हैं" : "Ships same day"}</div>
         </div>
       </div>
 
