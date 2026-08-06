@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { Menu, Moon, Phone, Sun, X } from "lucide-react";
 import { useTheme } from "@/components/providers/theme-provider";
 import { useLang } from "@/components/providers/language-provider";
-import { SITE } from "@/lib/site";
 
 const NAV = [
   { href: "/parts", labelKey: "nav.inventory" as const, index: "01" },
@@ -39,20 +38,20 @@ export function SiteHeader() {
               <span className="relative rounded-full h-2 w-2 bg-[var(--amber)]" />
             </span>
             <span className="hidden sm:inline">
-              {lang === "hi" ? "रोज़ खुला · सुबह 9–शाम 7" : "Open daily · 9am–7pm"}
+              {lang === "hi" ? "खुला · सोम–शनि · सुबह 9–शाम 7" : "Open · Mon–Sat · 9am–7pm"}
             </span>
-            <span className="sm:hidden">{lang === "hi" ? "रोज़ खुला" : "Open daily"}</span>
+            <span className="sm:hidden">{lang === "hi" ? "अभी खुला" : "Open now"}</span>
           </div>
           <div className="hidden md:flex items-center justify-self-center gap-6 whitespace-nowrap">
             <span className="text-[var(--bone)]/70">Est. 2005</span>
             <span className="text-[var(--bone)]/70">Varanasi, UP</span>
           </div>
           <a
-            href={SITE.phoneHref}
+            href="tel:+919838397109"
             className="link-edit inline-flex shrink-0 items-center justify-self-end gap-2 whitespace-nowrap hover:text-[var(--amber)] transition-colors"
           >
             <Phone className="h-3 w-3 shrink-0" aria-hidden />
-            <span>{SITE.phone}</span>
+            <span>+91 98383 97109</span>
           </a>
         </div>
       </div>

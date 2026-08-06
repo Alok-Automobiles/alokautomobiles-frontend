@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { whatsappURL } from "@/lib/site";
 
 /**
  * POST /api/enquiry
@@ -89,7 +88,7 @@ export async function POST(req: Request) {
     .filter(Boolean)
     .join("\n");
 
-  const waURL = whatsappURL(waMessage);
+  const waURL = `https://wa.me/919838397109?text=${encodeURIComponent(waMessage)}`;
 
   return NextResponse.json({ ok: true, whatsappUrl: waURL });
 }

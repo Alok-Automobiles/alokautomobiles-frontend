@@ -125,20 +125,12 @@ export default function RootLayout({
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-          "Sunday",
-        ],
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         opens: "09:00",
         closes: "19:00",
       },
     ],
-    areaServed: { "@type": "AdministrativeArea", name: SITE.serviceArea },
+    areaServed: SITE.districts.map((d) => ({ "@type": "City", name: d })),
     sameAs: [SITE.social.google],
   };
 

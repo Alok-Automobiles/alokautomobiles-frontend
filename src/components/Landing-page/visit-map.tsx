@@ -25,8 +25,8 @@ export function VisitMap() {
         <div className="col-span-12 md:col-span-5 md:col-start-8 pt-2">
           <p className="text-base md:text-lg text-[var(--ink)]/80 leading-relaxed">
             {isHindi
-              ? "Singh Petrol Pump के सामने हमारी दुकान है। काउंटर हर दिन सुबह 9 से शाम 7 बजे तक खुला रहता है। चाय के लिए भी आइए।"
-              : "Look for the Singh Petrol Pump — we're right opposite. The counter is open every day from 9am to 7pm. Stop by for a chai."}
+              ? "Singh Petrol Pump के सामने हमारी दुकान है। काउंटर हफ्ते में छह दिन खुला रहता है। चाय के लिए भी आइए।"
+              : "Look for the Singh Petrol Pump — we're right opposite. The counter is open six days a week. Stop by for a chai."}
           </p>
         </div>
       </div>
@@ -56,7 +56,7 @@ export function VisitMap() {
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[var(--amber)] animate-pulse-amber" />
               <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-[var(--bone)]/70">
-                {isHindi ? "रोज़ खुला · सुबह 9–शाम 7" : "Open daily · 9am–7pm"}
+                {isHindi ? "अभी खुला · शाम 7 बजे तक" : "Open now · until 7pm"}
               </span>
             </div>
             <div className="mt-2 font-display text-lg leading-tight">
@@ -90,12 +90,12 @@ export function VisitMap() {
           </InfoCard>
 
           <InfoCard icon={<Clock className="w-4 h-4" />} label={isHindi ? "समय" : "Hours"}>
-            {isHindi ? "सोमवार – रविवार" : "Monday – Sunday"}
+            {isHindi ? "सोमवार – शनिवार" : "Monday – Saturday"}
             <br />
             09:00 – 19:00
             <br />
             <span className="text-[var(--muted-foreground)]">
-              {isHindi ? "सप्ताह के सातों दिन" : "Open 7 days a week"}
+              {isHindi ? "रविवार बंद" : "Sunday closed"}
             </span>
           </InfoCard>
 
