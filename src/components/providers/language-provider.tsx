@@ -31,7 +31,7 @@ const DICT: Dict = {
   "stat.years": { en: "Years in the trade", hi: "साल का अनुभव" },
   "stat.fleets": { en: "Fleets served", hi: "बेड़ों को सेवा" },
   "stat.brands": { en: "Partner brands", hi: "पार्टनर ब्रांड" },
-  "stat.districts": { en: "Districts served", hi: "ज़िलों में सेवा" },
+  "stat.coverage": { en: "And surrounding areas", hi: "और आसपास के क्षेत्र" },
   "section.inventory.eyebrow": { en: "§ 03 · Inventory", hi: "§ ०३ · पुर्ज़े" },
   "section.partners.eyebrow": { en: "§ 02 · Partners", hi: "§ ०२ · ब्रांड्स" },
   "section.workshop.eyebrow": { en: "§ 04 · Workshop", hi: "§ ०४ · दुकान" },

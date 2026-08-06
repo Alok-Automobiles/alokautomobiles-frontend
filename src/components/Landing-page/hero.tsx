@@ -2,10 +2,34 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { ArrowUpRight, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLang } from "@/components/providers/language-provider";
 import { SITE } from "@/lib/site";
+
+const HERO_IMAGES = [
+  {
+    src: "/hero/alok-google-1.jpg",
+    alt: "Alok Automobiles storefront in Mohansarai, Varanasi",
+  },
+  {
+    src: "/hero/alok-google-2.jpg",
+    alt: "Shelves of genuine spare parts inside Alok Automobiles",
+  },
+  {
+    src: "/hero/alok-google-3.jpg",
+    alt: "Trucks being serviced beside Alok Automobiles",
+  },
+  {
+    src: "/hero/alok-google-4.jpg",
+    alt: "Tata genuine parts and oils stocked at Alok Automobiles",
+  },
+  {
+    src: "/hero/alok-google-5.jpg",
+    alt: "Organised automotive parts shelves at Alok Automobiles",
+  },
+] as const;
 
 export function Hero() {
   const { lang, t } = useLang();
@@ -37,9 +61,9 @@ export function Hero() {
       </div>
 
       <div className="site-container pt-14 md:pt-20 pb-24 md:pb-32">
-        <div className="grid grid-cols-12 gap-y-10 gap-x-6 lg:gap-x-10 xl:gap-x-12 items-start">
+        <div className="grid grid-cols-12 gap-y-10 gap-x-6 lg:gap-x-10 xl:gap-x-12 items-stretch">
           {/* LEFT */}
-          <div className="col-span-12 lg:col-span-7 relative">
+          <div className="col-span-12 lg:col-span-6 relative">
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -126,18 +150,18 @@ export function Hero() {
               <Stat value="20+" label={t("stat.years")} />
               <Stat value="1,200+" label={t("stat.fleets")} />
               <Stat value="40+" label={t("stat.brands")} />
-              <Stat value="9" label={t("stat.districts")} />
+              <Stat value={isHindi ? "वाराणसी" : "Varanasi"} label={t("stat.coverage")} />
             </motion.div>
           </div>
 
-          {/* RIGHT — truck panel */}
+          {/* RIGHT — shop panel */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.25, duration: 0.9, ease: [0.22, 0.8, 0.22, 1] }}
-            className="col-span-12 lg:col-span-5 relative min-w-0"
+            className="col-span-12 lg:col-span-6 relative min-w-0 lg:self-start"
           >
-            <TruckPanel />
+            <ShopPanel />
           </motion.div>
         </div>
 
@@ -211,66 +235,78 @@ function AmberGlow() {
   );
 }
 
-function TruckPanel() {
+function ShopPanel() {
   const { lang } = useLang();
   const isHindi = lang === "hi";
+  const [activeImage, setActiveImage] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveImage((current) => (current + 1) % HERO_IMAGES.length);
+    }, 4200);
+
+    return () => window.clearInterval(timer);
+  }, []);
 
   return (
-    <div className="relative aspect-[4/5] md:aspect-[5/6] rounded-sm overflow-hidden bg-[var(--ink)] text-[var(--bone)]">
-      <div
-        className="absolute inset-0 opacity-25"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(239,231,210,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(239,231,210,0.08) 1px, transparent 1px)",
-          backgroundSize: "32px 32px",
-        }}
-      />
+    <div
+      aria-label={isHindi ? "आलोक ऑटोमोबाइल्स फोटो गैलरी" : "Alok Automobiles photo gallery"}
+      aria-roledescription="carousel"
+      className="relative aspect-[4/3] lg:aspect-auto lg:h-[clamp(22rem,calc(100svh-17rem),44rem)] rounded-sm overflow-hidden bg-[var(--ink)] text-[var(--bone)]"
+    >
+      {HERO_IMAGES.map((image, index) => {
+        const previousImage = (activeImage - 1 + HERO_IMAGES.length) % HERO_IMAGES.length;
+        const x = index === activeImage ? "0%" : index === previousImage ? "-100%" : "100%";
 
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="relative w-[85%] aspect-square">
-          <div
-            className="absolute inset-0 rounded-full border border-[var(--bone)]/15 animate-orbit"
-            style={{ animationDuration: "60s" }}
+        return (
+          <motion.div
+            key={image.src}
+            aria-hidden={index !== activeImage}
+            initial={false}
+            animate={{ x, opacity: index === activeImage ? 1 : 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 0.8, 0.22, 1] }}
+            className="absolute inset-0"
           >
-            <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-[var(--amber)]" />
-            <span className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 h-1 w-1 rounded-full bg-[var(--bone)]" />
-          </div>
-          <div
-            className="absolute inset-6 rounded-full border border-dashed border-[var(--bone)]/10 animate-orbit"
-            style={{ animationDuration: "80s", animationDirection: "reverse" }}
+            <Image
+              src={image.src}
+              alt={index === activeImage ? image.alt : ""}
+              fill
+              priority={index < 2}
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              className="object-cover object-center"
+            />
+          </motion.div>
+        );
+      })}
+
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[var(--ink)]/75 via-transparent to-transparent" />
+      <div className="absolute inset-0 ring-1 ring-inset ring-[var(--bone)]/15" />
+
+      <div className="absolute left-4 right-4 top-4 z-10 flex gap-1.5">
+        {HERO_IMAGES.map((image, index) => (
+          <button
+            key={image.src}
+            type="button"
+            onClick={() => setActiveImage(index)}
+            aria-label={`${isHindi ? "फोटो" : "Show photo"} ${index + 1}`}
+            aria-current={index === activeImage ? "true" : undefined}
+            className={`h-1 flex-1 rounded-full transition-colors ${
+              index === activeImage ? "bg-[var(--amber)]" : "bg-[var(--bone)]/35 hover:bg-[var(--bone)]/60"
+            }`}
           />
-        </div>
+        ))}
       </div>
 
-      <div className="absolute inset-0 flex items-center justify-center p-6">
-        <div className="relative w-[96%]">
-          <Image
-            src="/truck.png"
-            alt="Heavy-duty truck"
-            width={900}
-            height={600}
-            priority
-            className="relative z-10 w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(230,161,10,0.25)]"
-          />
-          <div
-            aria-hidden
-            className="absolute left-1/2 -bottom-2 -translate-x-1/2 w-[70%] h-8 rounded-full blur-2xl opacity-60"
-            style={{
-              background:
-                "radial-gradient(ellipse, color-mix(in oklab, var(--amber) 60%, transparent) 0%, transparent 70%)",
-            }}
-          />
-        </div>
-      </div>
-
-      <div className="absolute left-4 right-4 bottom-4 flex items-end justify-between font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--bone)]/70">
+      <div className="absolute left-4 right-4 bottom-4 z-10 flex items-end justify-between font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--bone)]/70">
         <div>
-          <div>{isHindi ? "स्पेक · 01" : "Spec · 01"}</div>
-          <div className="text-[var(--amber)] mt-1">{isHindi ? "फ्लीट-ग्रेड" : "Fleet-grade"}</div>
+          <div>
+            {isHindi ? "हमारी दुकान" : "Our shop"} · {String(activeImage + 1).padStart(2, "0")}
+          </div>
+          <div className="text-[var(--amber)] mt-1">{isHindi ? "असली स्टॉक" : "Genuine stock"}</div>
         </div>
         <div className="text-right">
-          <div>{isHindi ? "पार्ट्स तैयार" : "Parts ready"}</div>
-          <div className="text-[var(--amber)] mt-1">{isHindi ? "उसी दिन भेजते हैं" : "Ships same day"}</div>
+          <div>{isHindi ? "मोहनसराय" : "Mohansarai"}</div>
+          <div className="text-[var(--amber)] mt-1">{isHindi ? "वाराणसी" : "Varanasi"}</div>
         </div>
       </div>
 

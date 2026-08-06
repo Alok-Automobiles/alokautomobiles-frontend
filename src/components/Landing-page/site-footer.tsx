@@ -36,28 +36,21 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* Districts served band */}
+      {/* Service area band */}
       <div className="relative border-b border-[var(--bone)]/10">
         <div className="site-container py-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
           <span className="eyebrow text-[var(--bone)]/60">
-            {isHindi ? "जहाँ हम सेवा देते हैं" : "Districts we serve"}
+            {isHindi ? "सेवा क्षेत्र" : "Service area"}
           </span>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-[var(--bone)]/80">
-            {SITE.districts.map((d, i) => (
-              <span key={d} className="flex items-center gap-4">
-                <span>{d}</span>
-                {i < SITE.districts.length - 1 && (
-                  <span className="text-[var(--amber)]/60">·</span>
-                )}
-              </span>
-            ))}
-          </div>
+          <p className="text-sm text-[var(--bone)]/80">
+            {isHindi ? SITE.serviceAreaHi : SITE.serviceArea}
+          </p>
         </div>
       </div>
 
       {/* Columns */}
-      <div className="site-container relative py-16 grid grid-cols-12 gap-6 md:gap-10">
-        <div className="col-span-12 md:col-span-5">
+      <div className="site-container relative py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[minmax(0,4fr)_minmax(7rem,1.5fr)_minmax(14rem,2.5fr)_minmax(15rem,3fr)] gap-x-6 gap-y-12 lg:gap-x-10">
+        <div>
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-full overflow-hidden ring-1 ring-[var(--bone)]/20 bg-[var(--paper)]">
               <Image src="/logo.png" alt={SITE.name} width={44} height={44} className="w-full h-full object-cover" />
@@ -90,7 +83,7 @@ export function SiteFooter() {
           </Link>
         </div>
 
-        <div className="col-span-6 md:col-span-2">
+        <div>
           <p className="eyebrow text-[var(--bone)]/50 mb-4">{isHindi ? "दुकान" : "Shop"}</p>
           <ul className="space-y-3 text-sm">
             <FLink href="/parts">{isHindi ? "पार्ट्स" : "Parts"}</FLink>
@@ -101,27 +94,27 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        <div className="col-span-6 md:col-span-2">
+        <div className="min-w-0">
           <p className="eyebrow text-[var(--bone)]/50 mb-4">{isHindi ? "संपर्क" : "Reach"}</p>
           <ul className="space-y-3 text-sm">
             <li>
-              <Link href={SITE.phoneHref} className="flex items-center gap-2 hover:text-[var(--amber)] transition-colors">
-                <Phone className="h-4 w-4" />
-                {SITE.phone}
+              <Link href={SITE.phoneHref} className="grid grid-cols-[1rem_minmax(0,1fr)] items-start gap-3 hover:text-[var(--amber)] transition-colors">
+                <Phone className="mt-0.5 h-4 w-4" />
+                <span className="whitespace-nowrap">{SITE.phone}</span>
               </Link>
             </li>
             <li>
-              <Link href={`mailto:${SITE.email}`} className="flex items-center gap-2 hover:text-[var(--amber)] transition-colors break-all">
-                <Mail className="h-4 w-4 shrink-0" />
-                <span className="break-all">{SITE.email}</span>
+              <Link href={`mailto:${SITE.email}`} className="grid grid-cols-[1rem_minmax(0,1fr)] items-start gap-3 hover:text-[var(--amber)] transition-colors">
+                <Mail className="mt-0.5 h-4 w-4" />
+                <span className="min-w-0 [overflow-wrap:anywhere]">{SITE.email}</span>
               </Link>
             </li>
           </ul>
         </div>
 
-        <div className="col-span-12 md:col-span-3">
+        <div className="min-w-0">
           <p className="eyebrow text-[var(--bone)]/50 mb-4">{isHindi ? "पता" : "Visit"}</p>
-          <address className="not-italic text-sm text-[var(--bone)]/80 leading-relaxed flex gap-3">
+          <address className="not-italic text-sm text-[var(--bone)]/80 leading-relaxed grid grid-cols-[1rem_minmax(0,1fr)] gap-3">
             <MapPin className="h-4 w-4 mt-1 text-[var(--amber)] shrink-0" />
             <span>
               {SITE.address.line1}
@@ -131,8 +124,10 @@ export function SiteFooter() {
               {SITE.address.region} — {SITE.address.postalCode}
             </span>
           </address>
-          <p className="mt-4 eyebrow text-[var(--bone)]/50">{isHindi ? "समय" : "Hours"}</p>
-          <p className="mt-2 font-mono text-xs text-[var(--bone)]/75">{SITE.hours}</p>
+          <div className="mt-4 pl-7">
+            <p className="eyebrow text-[var(--bone)]/50">{isHindi ? "समय" : "Hours"}</p>
+            <p className="mt-2 font-mono text-xs text-[var(--bone)]/75">{SITE.hours}</p>
+          </div>
         </div>
       </div>
 
