@@ -34,8 +34,8 @@ const ITEMS: Item[] = [
     n: "03",
     title: "Fast fulfilment",
     titleHi: "तेज़ डिलीवरी",
-    body: "Most orders despatched same day. Transport across UP and onward by the carriers you already trust.",
-    bodyHi: "अधिकतर ऑर्डर उसी दिन निकलते हैं। UP और आगे आपके भरोसेमंद carriers से भेजते हैं।",
+    body: "Most orders despatched the same day, with local service across Varanasi and surrounding areas.",
+    bodyHi: "अधिकतर ऑर्डर उसी दिन निकलते हैं। वाराणसी और आसपास के क्षेत्रों में स्थानीय सेवा उपलब्ध है।",
     icon: <Truck className="h-5 w-5" />,
   },
   {
@@ -110,7 +110,7 @@ export function ServiceHighlights() {
 
       {/* footer meta */}
       <div className="mt-8 flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--muted-foreground)]">
-        <span>{isHindi ? "खुला सोम–शनि · 9am – 7pm" : "Open Mon–Sat · 9am – 7pm"}</span>
+        <span>{isHindi ? "रोज़ खुला · सुबह 9–शाम 7" : "Open daily · 9am–7pm"}</span>
         <span className="text-[var(--amber-deep)]">
           ◆ &nbsp;{isHindi ? "काउंटर खुला · workshop live" : "Counter open · Workshop live"}
         </span>
