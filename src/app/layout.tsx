@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { LoadingScreen } from "@/components/Landing-page/loading-screen";
 import { SiteProviders } from "@/components/providers/site-providers";
 import { themeInitScript } from "@/components/providers/theme-provider";
 import { WhatsAppButton } from "@/components/Landing-page/whatsapp-button";
-import { SITE } from "@/lib/site";
+import { serializeJsonLd } from "@/lib/json-ld";
+import { SITE, mapsURL } from "@/lib/site";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -29,13 +29,16 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — ${SITE.tagline}`,
+    default: `${SITE.tagline} | ${SITE.name}`,
     template: `%s · ${SITE.name}`,
   },
   description: SITE.description,
   keywords: [
     "truck spare parts",
-    "4-wheeler parts",
+    "truck spare parts shop in Varanasi",
+    "car spare parts",
+    "car spare parts shop in Varanasi",
+    "4-wheeler spare parts",
     "engine oil",
     "Castrol",
     "Valvoline",
@@ -63,22 +66,18 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: SITE.url,
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: `${SITE.tagline} | ${SITE.name}`,
     description: SITE.description,
     siteName: SITE.name,
     locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: `${SITE.tagline} | ${SITE.name}`,
     description: SITE.description,
   },
   alternates: {
     canonical: SITE.url,
-    languages: {
-      "en-IN": SITE.url,
-      "hi-IN": SITE.url,
-    },
   },
   category: "business",
 };
@@ -100,6 +99,7 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "AutoPartsStore",
+    "@id": `${SITE.url}/#store`,
     name: SITE.name,
     description: SITE.description,
     url: SITE.url,
@@ -139,6 +139,17 @@ export default function RootLayout({
       },
     ],
     areaServed: { "@type": "AdministrativeArea", name: SITE.serviceArea },
+    hasMap: mapsURL(),
+    knowsAbout: [
+      "Truck spare parts",
+      "Car spare parts",
+      "Commercial vehicle parts",
+      "Engine oil",
+      "Automotive filters",
+      "Braking parts",
+      "Drivetrain parts",
+      "Suspension parts",
+    ],
     sameAs: [SITE.social.google],
   };
 
@@ -152,14 +163,13 @@ export default function RootLayout({
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
         />
       </head>
       <body
         className={`${inter.variable} ${fraunces.variable} ${mono.variable} antialiased bg-background text-foreground`}
       >
         <SiteProviders>
-          <LoadingScreen />
           {children}
           <WhatsAppButton />
         </SiteProviders>

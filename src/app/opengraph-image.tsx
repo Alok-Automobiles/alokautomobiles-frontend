@@ -1,7 +1,6 @@
 import { ImageResponse } from "next/og";
 import { SITE } from "@/lib/site";
 
-export const runtime = "edge";
 export const alt = `${SITE.name} — ${SITE.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -51,7 +50,7 @@ export default async function Image() {
           }}
         >
           <span>Alok Automobiles</span>
-          <span style={{ color: "#e6a10a" }}>◆ &nbsp;Varanasi · UP · IND</span>
+          <span style={{ color: "#e6a10a" }}>VARANASI / UP / INDIA</span>
         </div>
 
         {/* headline */}

@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useLang } from "@/components/providers/language-provider";
 
-const BRANDS = [
+const FALLBACK_BRANDS = [
   "Castrol",
   "Timken",
   "TATA",
@@ -19,9 +20,10 @@ const BRANDS = [
   "ZF",
 ];
 
-export function BrandStrip() {
+export function BrandStrip({ brands }: { brands: string[] }) {
   const { lang } = useLang();
   const isHindi = lang === "hi";
+  const displayedBrands = brands.length ? brands : FALLBACK_BRANDS;
 
   return (
     <div className="relative bg-[var(--ink)] text-[var(--bone)] overflow-hidden">
@@ -34,35 +36,63 @@ export function BrandStrip() {
               {isHindi ? "§ ०२ · ब्रांड्स" : "§ 02 · Partners"}
             </p>
             <h3 className="font-display text-3xl md:text-5xl leading-[0.95] mt-3">
-              {isHindi ? "जिन नामों पर" : "Stocked by the names"}
+              {isHindi ? "लाइव इन्वेंटरी के" : "Every brand in our"}
               <br />
               <span className="italic text-[var(--bone)]/80">
-                {isHindi ? "आप भरोसा करते हैं।" : "you already trust."}
+                {isHindi ? "सभी ब्रांड।" : "live inventory."}
               </span>
             </h3>
           </div>
           <p className="hidden md:block max-w-sm text-sm text-[var(--bone)]/70 pb-2">
             {isHindi
-              ? "OE और aftermarket makers के साथ दो दशक का रिश्ता। हर पार्ट indexed, catalogued और भरोसेमंद।"
-              : "Two decades of partnerships with OE and aftermarket makers. Every part indexed, catalogued, guaranteed."}
+              ? "यह सूची लाइव इन्वेंटरी से अपने-आप बनती है। नया ब्रांड जोड़ने पर वह भी यहाँ दिखाई देगा।"
+              : "This list is generated from live inventory. Add a new brand to a product and it will appear here automatically."}
           </p>
         </div>
       </div>
 
       {/* Marquee row 1 */}
-      <MarqueeRow brands={BRANDS} direction="left" duration="42s" />
+      <MarqueeRow brands={displayedBrands} direction="left" duration="110s" />
       <div className="h-px bg-[var(--bone)]/10" />
       {/* Marquee row 2 — reverse */}
       <MarqueeRow
-        brands={[...BRANDS].reverse()}
+        brands={[...displayedBrands].reverse()}
         direction="right"
-        duration="56s"
+        duration="125s"
         dim
       />
 
+      <div className="site-container pt-6">
+        <details className="group border border-[var(--bone)]/15 bg-[var(--bone)]/[0.03]">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--bone)]/75 transition-colors hover:text-[var(--amber)] [&::-webkit-details-marker]:hidden">
+            <span>
+              {isHindi
+                ? `सभी ${displayedBrands.length} ब्रांड A–Z देखें`
+                : `Browse all ${displayedBrands.length} brands A–Z`}
+            </span>
+            <span className="text-[var(--amber)] transition-transform group-open:rotate-45">+</span>
+          </summary>
+          <div className="grid grid-cols-2 border-t border-[var(--bone)]/15 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+            {displayedBrands.map((brand) => (
+              <Link
+                key={brand}
+                href={`/parts?search=${encodeURIComponent(brand)}`}
+                className="border-b border-r border-[var(--bone)]/10 px-4 py-3 text-xs text-[var(--bone)]/70 transition-colors hover:bg-[var(--amber)] hover:text-[var(--ink)]"
+              >
+                {brand}
+              </Link>
+            ))}
+          </div>
+        </details>
+      </div>
+
       {/* bottom meta */}
       <div className="site-container py-6 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--bone)]/50">
-        <span>{isHindi ? `${BRANDS.length}+ ब्रांड indexed` : `${BRANDS.length}+ brands indexed`}</span>
+        <span>
+          {isHindi
+            ? `${displayedBrands.length} ब्रांड लाइव इन्वेंटरी में`
+            : `${displayedBrands.length} brands in live inventory`}
+        </span>
         <span className="text-[var(--amber)]">◆</span>
         <span>Varanasi · UP · IND</span>
       </div>

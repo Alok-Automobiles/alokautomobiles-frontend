@@ -34,8 +34,8 @@ const ITEMS: Item[] = [
     n: "03",
     title: "Fast fulfilment",
     titleHi: "तेज़ डिलीवरी",
-    body: "Most orders despatched the same day, with local service across Varanasi and surrounding areas.",
-    bodyHi: "अधिकतर ऑर्डर उसी दिन निकलते हैं। वाराणसी और आसपास के क्षेत्रों में स्थानीय सेवा उपलब्ध है।",
+    body: "In-stock orders usually leave the same day. We can source most unavailable requests within 7 days or less.",
+    bodyHi: "स्टॉक वाले अधिकतर ऑर्डर उसी दिन निकलते हैं। उपलब्ध न होने वाले ज़्यादातर पार्ट 7 दिन या उससे कम में मंगाए जा सकते हैं।",
     icon: <Truck className="h-5 w-5" />,
   },
   {
