@@ -87,6 +87,12 @@ export function SiteFooter() {
           <p className="eyebrow text-[var(--bone)]/50 mb-4">{isHindi ? "दुकान" : "Shop"}</p>
           <ul className="space-y-3 text-sm">
             <FLink href="/parts">{isHindi ? "पार्ट्स" : "Parts"}</FLink>
+            <FLink href="/truck-spare-parts-varanasi">
+              {isHindi ? "वाराणसी में ट्रक पार्ट्स" : "Truck parts in Varanasi"}
+            </FLink>
+            <FLink href="/car-spare-parts-varanasi">
+              {isHindi ? "वाराणसी में कार पार्ट्स" : "Car parts in Varanasi"}
+            </FLink>
             <FLink href="/#brands">{isHindi ? "ब्रांड्स" : "Partners"}</FLink>
             <FLink href="/#workshop">{isHindi ? "दुकान" : "Workshop"}</FLink>
             <FLink href="/#contact">{isHindi ? "संपर्क" : "Contact"}</FLink>

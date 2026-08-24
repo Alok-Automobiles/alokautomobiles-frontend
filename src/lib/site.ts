@@ -1,9 +1,9 @@
 export const SITE = {
   name: "Alok Automobiles",
-  tagline: "Truck & 4-Wheeler Parts · Since 2005",
+  tagline: "Truck & Car Spare Parts Shop in Varanasi",
   description:
-    "A twenty-year-old house of spare parts in Varanasi. Engine oils, braking, drivetrain, filtration and more — for trucks and 4-wheelers. Genuine stock, ready to ship.",
-  url: "https://alokautomobiles.com",
+    "Truck and car spare parts shop in Mohansarai, Varanasi. Search live inventory by product, brand, or part number. Most unavailable parts sourced within 7 days or less.",
+  url: "https://www.alokautomobiles.com",
   phone: "+91 95552 13876",
   phoneHref: "tel:+919555213876",
   whatsapp: "919555213876",
@@ -24,6 +24,8 @@ export const SITE = {
   social: {
     google: "https://share.google/ltxswOnIy6trlksDa",
   },
+  sourcingPromise:
+    "We can source most requested truck and car parts within 7 days or less.",
 } as const;
 
 export function whatsappURL(message: string) {

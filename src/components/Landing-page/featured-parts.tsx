@@ -1,13 +1,13 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import Link from "next/link";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowUpRight,
   ChevronLeft,
   ChevronRight,
   MessageCircle,
-  Phone,
   RefreshCw,
   Search,
 } from "lucide-react";
@@ -19,6 +19,7 @@ type InventoryStatusFilter = "all" | Availability;
 
 type PublicInventoryItem = {
   id: string;
+  path: string;
   itemName: string;
   itemNumber: string;
   uniqueCode: string;
@@ -31,7 +32,7 @@ type PublicInventoryItem = {
   updatedAt: string | null;
 };
 
-type PublicInventoryResponse = {
+export type PublicInventoryResponse = {
   items: PublicInventoryItem[];
   pagination: {
     page: number;
@@ -91,20 +92,36 @@ function getDisplayAvailability(item: PublicInventoryItem, isHindi: boolean) {
   return item.availability === "in-stock" ? "उपलब्ध" : "स्टॉक नहीं";
 }
 
-export function FeaturedParts({ initialSearch = "" }: { initialSearch?: string }) {
+export function FeaturedParts({
+  initialSearch = "",
+  initialData,
+}: {
+  initialSearch?: string;
+  initialData?: PublicInventoryResponse;
+}) {
   const { lang } = useLang();
-  const [items, setItems] = useState<PublicInventoryItem[]>([]);
+  const canUseInitialData = Boolean(initialData && !initialSearch.trim());
+  const skipInitialRequest = useRef(canUseInitialData);
+  const [items, setItems] = useState<PublicInventoryItem[]>(
+    canUseInitialData ? initialData?.items ?? [] : []
+  );
   const [statusFilter, setStatusFilter] = useState<InventoryStatusFilter>("all");
   const [searchInput, setSearchInput] = useState(initialSearch);
   const [searchQuery, setSearchQuery] = useState(initialSearch.trim());
   const [page, setPage] = useState(1);
-  const [pagination, setPagination] = useState<PublicInventoryResponse["pagination"]>({
-    page: 1,
-    limit: PAGE_SIZE,
-    total: 0,
-    totalPages: 1,
-  });
-  const [loadState, setLoadState] = useState<LoadState>("loading");
+  const [pagination, setPagination] = useState<PublicInventoryResponse["pagination"]>(
+    canUseInitialData && initialData
+      ? initialData.pagination
+      : {
+          page: 1,
+          limit: PAGE_SIZE,
+          total: 0,
+          totalPages: 1,
+        }
+  );
+  const [loadState, setLoadState] = useState<LoadState>(
+    canUseInitialData ? "ready" : "loading"
+  );
   const [errorMessage, setErrorMessage] = useState("");
 
   const isHindi = lang === "hi";
@@ -125,6 +142,16 @@ export function FeaturedParts({ initialSearch = "" }: { initialSearch?: string }
   }, [searchInput]);
 
   useEffect(() => {
+    if (
+      skipInitialRequest.current &&
+      page === 1 &&
+      statusFilter === "all" &&
+      !searchQuery
+    ) {
+      skipInitialRequest.current = false;
+      return;
+    }
+
     const controller = new AbortController();
 
     async function loadInventory() {
@@ -219,8 +246,8 @@ export function FeaturedParts({ initialSearch = "" }: { initialSearch?: string }
         <div className="col-span-12 md:col-span-5 md:col-start-8 pt-2">
           <p className="text-base md:text-lg text-[var(--ink)]/80 leading-relaxed">
             {isHindi
-              ? "हमारी दुकान के पार्ट्स खोजें। टाइपो होने पर भी सर्च काम करेगी। हम केवल उपलब्धता दिखाते हैं — सही स्टॉक और फिटमेंट के लिए कॉल या WhatsApp करें।"
-              : "Search our shop parts with typo-friendly matching. We show availability only — call or WhatsApp for exact stock and fitment."}
+              ? "हमारी दुकान के पार्ट्स खोजें। सही stock और fitment के लिए कॉल या WhatsApp करें। जो पार्ट अभी उपलब्ध नहीं है, उसे हम आमतौर पर 7 दिन या उससे कम में मंगा सकते हैं।"
+              : "Search live truck and car spare-parts inventory. Call or WhatsApp to confirm fitment; most unavailable parts can be sourced within 7 days or less."}
           </p>
         </div>
       </div>
@@ -323,7 +350,9 @@ export function FeaturedParts({ initialSearch = "" }: { initialSearch?: string }
                 </div>
 
                 <h3 className="font-display text-xl md:text-2xl mt-2 leading-tight tracking-tight text-[var(--ink)]">
-                  {item.itemName}
+                  <Link href={item.path} className="hover:text-[var(--amber-deep)] transition-colors">
+                    {item.itemName}
+                  </Link>
                 </h3>
                 <p className="mt-2 text-sm text-[var(--ink)]/70 leading-relaxed">
                   {getDescription(item)}
@@ -349,6 +378,11 @@ export function FeaturedParts({ initialSearch = "" }: { initialSearch?: string }
                       <div className="font-display text-base md:text-lg text-[var(--ink)] mt-0.5">
                         {getDisplayAvailability(item, isHindi)}
                       </div>
+                      {item.availability === "out-of-stock" && (
+                        <div className="mt-1 text-[10px] font-mono uppercase tracking-[0.12em] text-[var(--amber-deep)]">
+                          {isHindi ? "अधिकतर पार्ट ≤ 7 दिन" : "Most parts ≤ 7 days"}
+                        </div>
+                      )}
                     </div>
                     <a
                       href={whatsappURL(buildEnquiryMessage(item))}
@@ -362,6 +396,13 @@ export function FeaturedParts({ initialSearch = "" }: { initialSearch?: string }
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 mt-4">
+                    <Link
+                      href={item.path}
+                      className="inline-flex items-center justify-center gap-2 h-10 border border-[var(--border)] text-[11px] font-mono uppercase tracking-[0.18em] text-[var(--ink)] hover:border-[var(--ink)] transition-colors"
+                    >
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                      {isHindi ? "जानकारी" : "Details"}
+                    </Link>
                     <a
                       href={whatsappURL(buildEnquiryMessage(item))}
                       target="_blank"
@@ -369,14 +410,7 @@ export function FeaturedParts({ initialSearch = "" }: { initialSearch?: string }
                       className="inline-flex items-center justify-center gap-2 h-10 border border-[var(--border)] text-[11px] font-mono uppercase tracking-[0.18em] text-[var(--ink)] hover:border-[var(--ink)] transition-colors"
                     >
                       <MessageCircle className="h-3.5 w-3.5" />
-                      {isHindi ? "WhatsApp" : "WhatsApp"}
-                    </a>
-                    <a
-                      href={SITE.phoneHref}
-                      className="inline-flex items-center justify-center gap-2 h-10 border border-[var(--border)] text-[11px] font-mono uppercase tracking-[0.18em] text-[var(--ink)] hover:border-[var(--ink)] transition-colors"
-                    >
-                      <Phone className="h-3.5 w-3.5" />
-                      {isHindi ? "कॉल" : "Call"}
+                      WhatsApp
                     </a>
                   </div>
                 </div>
@@ -415,6 +449,11 @@ export function FeaturedParts({ initialSearch = "" }: { initialSearch?: string }
               {isHindi ? "काउंटर पर कॉल करें" : "Call the counter"}
             </a>
           </div>
+          <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-[var(--ink)]/65">
+            {isHindi
+              ? "लिस्ट में नहीं मिला? गाड़ी की जानकारी या part number भेजें। अधिकतर requested parts हम 7 दिन या उससे कम में मंगा सकते हैं।"
+              : "Not listed or currently unavailable? Send the vehicle details or part number. We can source most requested parts within 7 days or less."}
+          </p>
         </div>
       )}
 

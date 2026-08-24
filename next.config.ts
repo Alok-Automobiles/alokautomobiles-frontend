@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Keep development and production artifacts separate. Running `next build`
+  // while `next dev` is open can otherwise replace chunks used by the dev
+  // runtime and cause transient "Cannot find module './<chunk>.js'" errors.
+  distDir: process.env.NODE_ENV === 'development' ? '.next-dev' : '.next',
   images: {
     remotePatterns: [
       {
@@ -30,6 +34,12 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'upload.wikimedia.org',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
         port: '',
         pathname: '/**',
       },

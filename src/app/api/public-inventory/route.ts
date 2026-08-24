@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { Document, WithId } from "mongodb";
 import { getMongoDb } from "@/lib/mongodb";
+import { getPartPath } from "@/lib/part-links";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -300,13 +301,17 @@ function serializePublicInventoryItem(item: WithId<InventoryDocument>) {
   const uniqueCode = asCleanText(item.uniqueCode);
   const availability = getAvailability(item);
   const updatedAt = asIsoDate(item.updatedAt) || asIsoDate(item.createdAt);
+  const id = item._id.toString();
+  const itemName = asCleanText(item.itemName, "Unnamed item");
+  const brand = asCleanText(item.brand);
 
   return {
-    id: item._id.toString(),
-    itemName: asCleanText(item.itemName, "Unnamed item"),
+    id,
+    path: getPartPath({ id, itemName, brand }),
+    itemName,
     itemNumber,
     uniqueCode,
-    brand: asCleanText(item.brand),
+    brand,
     description: asCleanText(item.description),
     availability,
     availabilityLabel: getAvailabilityLabel(availability),

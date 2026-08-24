@@ -29,8 +29,8 @@ export function ContactCTA() {
 
           <p className="mt-6 max-w-xl text-base md:text-lg text-[var(--ink)]/80 leading-relaxed">
             {isHindi
-              ? "Make, model और part number हो तो बताइए। हम stock confirm करेंगे, सही price बताएँगे और जल्दी dispatch करेंगे।"
-              : "Tell us the make, the model, and the part number if you have it. We'll confirm stock, quote a fair price, and have it on a lorry before you've finished your chai."}
+              ? "Make, model और part number हो तो बताइए। हम stock और price confirm करेंगे। अगर पार्ट अभी उपलब्ध नहीं है, तो ज़्यादातर items 7 दिन या उससे कम में मंगा सकते हैं।"
+              : "Tell us the make, model, and part number if you have it. We'll confirm stock and price; most unavailable parts can be sourced within 7 days or less."}
           </p>
 
           {/* Quick action cards */}
